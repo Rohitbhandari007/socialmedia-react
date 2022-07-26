@@ -1,5 +1,6 @@
 import React from 'react'
 import { Flex, Input, InputGroup, InputRightElement, Button, Heading, Text } from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
 
 function Login() {
 
@@ -11,7 +12,7 @@ function Login() {
     return (
         <Flex bg='none'
             w='50%' p={16}
-            color='white'
+            color='black'
             flexDir='column'
             m={10}
 
@@ -36,8 +37,19 @@ function Login() {
                 <Text size='md'>
                     Dont have an account ?
                 </Text>
-                <Button backgroundColor='#333' ml={2}> Register</Button>
+                <Link to='/register'>
+                    <Button ml={2}> Sign up</Button>
+
+                </Link>
             </Flex>
+            <Flex mt={5} alignItems='center'>
+                <Text size='md'>
+                    Forgot password
+                </Text>
+                <Button ml={2}> Reset </Button>
+
+            </Flex>
+
 
         </Flex>
     )
