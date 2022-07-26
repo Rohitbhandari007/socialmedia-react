@@ -30,11 +30,34 @@ export const AuthProvider = ({ children }) => {
             setUser(jwt_decode(data.access))
             localStorage.setItem('authTokens', JSON.stringify(data))
             history.push('/')
+        } else if (response.status === 401) {
+            alert('Username or password error')
         } else {
             alert('Something went wrong!')
         }
     }
-
+    let registerUser = async (e) => {
+        e.preventDefault()
+        let response = await fetch('http://127.0.0.1:8000/users/register/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'username': e.target.username.value,
+                'email': e.target.email.value,
+                'password': e.target.password.value,
+                'password2': e.target.password2.value,
+                'terms': true,
+            })
+        })
+        let data = await response.json()
+        if (response.status === 200) {
+            history.push('/login')
+        } else {
+            console.log(data.errors)
+        }
+    }
 
     let logoutUser = () => {
         setAuthTokens(null)
@@ -52,6 +75,7 @@ export const AuthProvider = ({ children }) => {
         setUser: setUser,
         loginUser: loginUser,
         logoutUser: logoutUser,
+        registerUser: registerUser,
     }
 
 

@@ -30,7 +30,8 @@ const HomePage = () => {
 
             <ul>
                 {notes.map(note => (
-                    <li key={note.id} >{note.title}</li>
+                    <li key={note.id} >{note.title}{note.date_created}</li>
+
                 ))}
             </ul>
         </div>

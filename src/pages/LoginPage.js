@@ -24,13 +24,14 @@ function Login() {
             <form onSubmit={loginUser}>
 
 
-                <Input placeholder='Username' name='username' size='md' mt={2} />
+                <Input placeholder='Username' name='username' size='md' mt={2} required />
                 <InputGroup size='md' mt={2}>
                     <Input
                         pr='4.5rem'
                         name='password'
                         type={show ? 'text' : 'password'}
                         placeholder='Enter password'
+                        required
                     />
                     <InputRightElement width='4.5rem'>
                         <Button h='1.75rem' size='sm' onClick={handleClick}>
