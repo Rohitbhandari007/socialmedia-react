@@ -56,6 +56,8 @@ export const AuthProvider = ({ children }) => {
             history.push('/login')
         } else {
             console.log(data.errors)
+            const errors = data.errors
+
         }
     }
 
