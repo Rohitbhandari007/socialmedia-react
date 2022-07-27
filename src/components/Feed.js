@@ -40,7 +40,7 @@ function Feed() {
                     title={note.title}
                     created={note.date_created}
                     username={note.author.username}
-                    postImage={note.image}
+                    postImage="http://127.0.0.1:8000/media/post/image/virajbhatata_LeZaQcr.jpg"
                 ></PostItem>
             ))}
 

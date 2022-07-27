@@ -32,9 +32,10 @@ function PostItem({ details, postImage, created, username }) {
                     flexDir='row'
                     justifyContent='space-around'
                 >
+                    <Avatar size='sm'></Avatar>
                     <Text fontSize='sm' m={1} cursor='pointer' fontWeight='bold'>{username}</Text>
-                    <Text fontSize='sm' m={1}>{created}</Text>
                 </Flex>
+
                 <Menu>
                     <MenuButton
                         as={IconButton}
@@ -52,16 +53,23 @@ function PostItem({ details, postImage, created, username }) {
                     </MenuList>
                 </Menu>
             </Flex>
+
             <Flex
                 flexDir='column'
             >
                 {postImage && <Image
+                    alignSelf='center'
                     src={postImage}
-                    h='50vh' w='70vh'
+                    h='50vh' w={{ sm: '50vh', md: '80vh' }}
                     objectFit='cover'
                     objectPosition='center center'
-                    borderRadius='sm'></Image>
+                >
+
+                </Image>
                 }
+                <Text fontSize='sm' m={1}>{created}</Text>
+                <Divider></Divider>
+
                 <Text m={2}>{details}</Text>
                 <Divider></Divider>
                 <Flex

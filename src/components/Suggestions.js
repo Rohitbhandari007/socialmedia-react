@@ -13,7 +13,9 @@ function Suggestions() {
             mt={4}
             bg={bg}
 
-
+            position="fixed"
+            height='100vh'
+            float='right'
         >
 
             <Text m={3}>Suggestions</Text>
