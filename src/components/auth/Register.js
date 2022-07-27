@@ -8,7 +8,7 @@ function Register() {
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
 
-    let { registerUser } = useContext(AuthContext)
+    let { registerUser, error } = useContext(AuthContext)
 
     return (
         <Flex bg='none'
@@ -63,6 +63,7 @@ function Register() {
                     </Link>
                 </Flex>
             </form>
+            <Text>{error && error}</Text>
         </Flex>
 
     )

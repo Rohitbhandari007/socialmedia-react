@@ -11,6 +11,8 @@ export const AuthProvider = ({ children }) => {
     let [authTokens, setAuthTokens] = useState(() => localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
     let [user, setUser] = useState(() => localStorage.getItem('authTokens') ? jwt_decode(localStorage.getItem('authTokens')) : null)
     let [loading, setLoading] = useState(true)
+    let [error, setError] = useState(null)
+
 
     const history = useHistory()
 
@@ -57,9 +59,14 @@ export const AuthProvider = ({ children }) => {
         } else {
             console.log(data.errors)
             const errors = data.errors
-
+            for (let i in errors) {
+                console.log(errors[i][0])
+                setError(errors[i][0])
+            }
         }
     }
+
+
 
     let logoutUser = () => {
         setAuthTokens(null)
@@ -78,6 +85,7 @@ export const AuthProvider = ({ children }) => {
         loginUser: loginUser,
         logoutUser: logoutUser,
         registerUser: registerUser,
+        error: error,
     }
 
 
