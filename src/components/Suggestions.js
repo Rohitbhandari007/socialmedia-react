@@ -1,9 +1,9 @@
 import React from 'react'
-import { Flex, Input, IconButton, Text, useColorModeValue } from '@chakra-ui/react'
+import { Flex, Input, IconButton, Text, useColorModeValue, InputGroup } from '@chakra-ui/react'
 import SuggItems from './SuggItems'
+import { FaSearch } from 'react-icons/fa'
 
 function Suggestions() {
-    //const borderColor = useColorModeValue('1px solid #fff', '1px solid #111224')
     const bg = useColorModeValue('none', 'none')
 
     return (
@@ -11,17 +11,32 @@ function Suggestions() {
             flexDir='column'
             m={1}
             mt={4}
+            ml={4}
             bg={bg}
 
             position="fixed"
             height='100vh'
             float='right'
         >
+            <Flex>
+                <InputGroup>
+                    <Input variant='filled' placeholder='Search.. ' />
+                    <IconButton
+                        aria-label='Search database'
+                        icon={<FaSearch />}
+                        ml={1}
+                    />
 
-            <Text m={3}>Suggestions</Text>
-            <SuggItems></SuggItems>
-            <SuggItems></SuggItems>
-            <SuggItems></SuggItems>
+                </InputGroup>
+
+            </Flex>
+            <Flex flexDir='column'>
+                <Text m={3}>Suggestions</Text>
+                <SuggItems></SuggItems>
+                <SuggItems></SuggItems>
+                <SuggItems></SuggItems>
+
+            </Flex>
 
         </Flex>
     )
