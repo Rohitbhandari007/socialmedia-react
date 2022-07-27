@@ -1,24 +1,55 @@
 import { React, useContext, useState } from 'react'
-import { Flex, Input, InputGroup, InputRightElement, Button, Heading, Text } from '@chakra-ui/react'
+import {
+    Flex, Input, InputGroup, InputRightElement, Button, Heading, Text, useColorMode, useColorModeValue,
+    IconButton, Alert, AlertDescription, AlertIcon
+} from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
+import { FaMoon, FaSun } from 'react-icons/fa';
+
 
 
 function Register() {
+
+    const { toggleColorMode } = useColorMode()
+    const SwitchIcon = useColorModeValue(FaMoon, FaSun);
+
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
 
-    let { registerUser, error } = useContext(AuthContext)
+    let { registerUser, error, success } = useContext(AuthContext)
 
     return (
         <Flex bg='none'
-            w='50%' p={16}
-            color='black'
+            w={{
+                sm: '50%',
+                md: '50%',
+            }}
+            p={{
+                sm: '10%',
+                md: '20px',
+            }}
             flexDir='column'
             m={10}
 
+
         >
-            <Heading>Sign up</Heading>
+            <Flex
+                justifyContent='space-between'
+                alignItems='center'
+
+            >
+                <Heading>Sign up</Heading>
+                <IconButton
+                    size="sm"
+                    fontSize="lg"
+                    variant="ghost"
+                    color="current"
+                    onClick={toggleColorMode}
+                    icon={<SwitchIcon />}
+                />
+            </Flex>
+
             <form onSubmit={registerUser}>
                 <Input placeholder='Username' name='username' size='md' mt={2} required />
                 <Input placeholder='Email' name='email' type='email' size='md' mt={2} required />
@@ -62,9 +93,31 @@ function Register() {
 
                     </Link>
                 </Flex>
+                <Flex
+
+                >
+                    {error &&
+                        <Alert status='error'
+                            mt={4}
+                        >
+                            <AlertIcon />
+                            <AlertDescription>{error && error}</AlertDescription>
+
+                        </Alert>}
+                    {success &&
+                        <Alert status='success'
+                            mt={4}
+                        >
+                            <AlertIcon />
+                            <AlertDescription>{success && success}</AlertDescription>
+
+                        </Alert>}
+
+                </Flex>
             </form>
-            <Text>{error && error}</Text>
+
         </Flex>
+
 
     )
 }

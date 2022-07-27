@@ -12,6 +12,8 @@ export const AuthProvider = ({ children }) => {
     let [user, setUser] = useState(() => localStorage.getItem('authTokens') ? jwt_decode(localStorage.getItem('authTokens')) : null)
     let [loading, setLoading] = useState(true)
     let [error, setError] = useState(null)
+    let [loginErr, setLoginErr] = useState(null)
+    let [success, setSuccess] = useState(null)
 
 
     const history = useHistory()
@@ -25,6 +27,7 @@ export const AuthProvider = ({ children }) => {
             },
             body: JSON.stringify({ 'username': e.target.username.value, 'password': e.target.password.value })
         })
+
         let data = await response.json()
 
         if (response.status === 200) {
@@ -32,10 +35,10 @@ export const AuthProvider = ({ children }) => {
             setUser(jwt_decode(data.access))
             localStorage.setItem('authTokens', JSON.stringify(data))
             history.push('/')
-        } else if (response.status === 401) {
-            alert('Username or password error')
         } else {
-            alert('Something went wrong!')
+            const loginErrors = 'Username or Password is incorrect'
+            setLoginErr(loginErrors)
+
         }
     }
     let registerUser = async (e) => {
@@ -54,8 +57,10 @@ export const AuthProvider = ({ children }) => {
             })
         })
         let data = await response.json()
-        if (response.status === 200) {
-            history.push('/login')
+        const msg = data.Messege
+        if (msg === 'Regestration succesful') {
+            const suc = "Regestration succesfull go to login page"
+            setSuccess(suc)
         } else {
             console.log(data.errors)
             const errors = data.errors
@@ -86,6 +91,8 @@ export const AuthProvider = ({ children }) => {
         logoutUser: logoutUser,
         registerUser: registerUser,
         error: error,
+        loginErr: loginErr,
+        success: success,
     }
 
 

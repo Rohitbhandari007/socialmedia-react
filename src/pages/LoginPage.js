@@ -1,26 +1,63 @@
 import { React, useContext, useState } from 'react'
-import { Flex, Input, InputGroup, InputRightElement, Button, Heading, Text } from '@chakra-ui/react'
+import {
+    Flex, Input, InputGroup, InputRightElement,
+    Button, Heading, Text, useColorMode, useColorModeValue,
+    IconButton, Alert, AlertIcon, AlertDescription, AlertTitle
+}
+    from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
+import { FaMoon, FaSun } from 'react-icons/fa';
+
 
 function Login() {
+
+    //alert
+
+
+
+    //theming
+    const { toggleColorMode } = useColorMode()
+    const SwitchIcon = useColorModeValue(FaMoon, FaSun);
 
 
     //password field 
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
 
-    let { loginUser } = useContext(AuthContext)
+    let { loginUser, loginErr } = useContext(AuthContext)
 
     return (
+
         <Flex bg='none'
-            w='50%' p={16}
-            color='black'
-            flexDir='column'
+            w={{
+                sm: '50%',
+                md: '50%',
+            }}
+            p={{
+                sm: '10%',
+                md: '20px',
+            }}
             m={10}
+            flexDir='column'
 
         >
-            <Heading>Login</Heading>
+            <Flex
+                justifyContent='space-between'
+                alignItems='center'
+
+            >
+                <Heading>Login</Heading>
+                <IconButton
+                    size="sm"
+                    fontSize="lg"
+                    variant="ghost"
+                    color="current"
+                    onClick={toggleColorMode}
+                    icon={<SwitchIcon />}
+                />
+            </Flex>
+
             <form onSubmit={loginUser}>
 
 
@@ -56,10 +93,24 @@ function Login() {
                     <Button ml={2}> Reset </Button>
 
                 </Flex>
+                <Flex
+
+                >
+                    {loginErr &&
+                        <Alert status='error'
+                            mt={4}
+                        >
+                            <AlertIcon />
+                            <AlertDescription>{loginErr && loginErr}</AlertDescription>
+
+                        </Alert>}
+                </Flex>
 
             </form >
 
+
         </Flex>
+
 
     )
 }
