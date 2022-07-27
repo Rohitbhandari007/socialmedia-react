@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react'
 import AuthContext from '../context/AuthContext'
 import useAxios from '../utils/useAxios'
+import PostItem from './PostItem'
+import { Flex } from '@chakra-ui/react'
+
 
 function Feed() {
     let [posts, setposts] = useState([])
@@ -19,21 +22,30 @@ function Feed() {
         if (response.status === 200) {
             setposts(response.data)
         }
-
+        console.log(posts)
     }
 
     return (
-        <div>
-            <p>You are logged to the home page!</p>
+
+        <Flex flexDir='column'
+            width={{
+                sm: '50vh',
+                md: '80vh'
+            }}
+        >
+            {posts.map(note => (
+
+                <PostItem key={note.id}
+                    details={note.details}
+                    title={note.title}
+                    created={note.date_created}
+                    username={note.author.username}
+                    postImage={note.image}
+                ></PostItem>
+            ))}
 
 
-            <ul>
-                {posts.map(note => (
-                    <li key={note.id} >{note.title}{note.date_created}</li>
-
-                ))}
-            </ul>
-        </div>
+        </Flex>
     )
 }
 
