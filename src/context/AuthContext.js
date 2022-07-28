@@ -14,6 +14,8 @@ export const AuthProvider = ({ children }) => {
     let [error, setError] = useState(null)
     let [loginErr, setLoginErr] = useState(null)
     let [success, setSuccess] = useState(null)
+    let [likeCount, setLikeCount] = useState()
+    let [like, setLike] = useState()
 
 
     const history = useHistory()
@@ -39,7 +41,44 @@ export const AuthProvider = ({ children }) => {
             const loginErrors = 'Username or Password is incorrect'
             setLoginErr(loginErrors)
 
+
         }
+    }
+    let likePost = async (e) => {
+        e.preventDefault()
+
+        const pk = {
+            pk: 41
+        }
+
+        const Auth = 'Bearer ' + authTokens.access
+
+        let response = await fetch('http://127.0.0.1:8000/like-unlike/', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json',
+                'Authorization': Auth,
+            },
+            body: JSON.stringify(pk)
+        })
+            .then((res) => res.json())
+            .then((messages) => {
+                console.log(messages)
+
+                const initialLike = (messages.liked)
+                const likeLen = (messages.count)
+                setLike(initialLike)
+                setLikeCount(likeLen)
+
+
+                console.log('Current like :' + initialLike + ', count: ' + likeLen)
+                console.log('Prev like :' + like + ', count: ' + likeCount)
+
+
+            });
+        //let data = response.json()
+        // console.log(data)
     }
     let registerUser = async (e) => {
         e.preventDefault()
@@ -93,6 +132,10 @@ export const AuthProvider = ({ children }) => {
         error: error,
         loginErr: loginErr,
         success: success,
+        likePost: likePost,
+        likeCount: likeCount,
+        like: like,
+
     }
 
 

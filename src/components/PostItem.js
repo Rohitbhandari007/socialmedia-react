@@ -1,14 +1,31 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect, useContext } from 'react'
 import { Box, Flex, Text, Image, Avatar, IconButton, Icon, Divider, useColorModeValue, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import { FiMenu, FiHeart, FiMessageCircle, FiSave, FiShare } from 'react-icons/fi'
+import useAxios from '../utils/useAxios'
+import AuthContext from '../context/AuthContext'
 
 
-function PostItem({ details, postImage, created, username }) {
-
+function PostItem({ details, postImage, created, username, likes, likestest, likeState }) {
+    //let [like, setLike] = useState([])
+    let { likePost } = useContext(AuthContext)
     const bg = useColorModeValue('#f0f0f5', '#1B222E')
     const borderColor = useColorModeValue('1px solid #f0f0f5', 'none')
+
+
     // const { image, setImage } = useState(false)
 
+    // let api = useAxios()
+
+    // useEffect(() => {
+    //     getLikes()
+    // }, [])
+
+    // let getLikes = async () => {
+    //     let response = await api.post('/like-unlike/')
+    //     setLike(response.data)
+
+    //     console.log(response.data)
+    // }
 
     return (
         <Box
@@ -79,8 +96,23 @@ function PostItem({ details, postImage, created, username }) {
                     mb={3}
 
                 >
+                    <Flex alignItems='center'>
+                        <Icon as={FiHeart}
+                            cursor="pointer"
+                            color='red.500'
+                            onClick={likePost}
 
-                    <Icon as={FiHeart} cursor="pointer"></Icon>
+                        >
+
+                        </Icon>
+                        <Text ml={1} fontSize='xs'>
+                            {likes} Likes | {likestest}  | {likeState}
+
+                        </Text>
+                        {likeState &&
+                            <Text>Liked</Text>
+                        }
+                    </Flex>
                     <Icon as={FiMessageCircle} cursor="pointer"></Icon>
                     <Icon as={FiSave} cursor="pointer"></Icon>
                     <Icon as={FiShare} cursor="pointer"></Icon>
