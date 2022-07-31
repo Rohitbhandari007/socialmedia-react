@@ -46,9 +46,9 @@ export const AuthProvider = ({ children }) => {
     }
     let likePost = async (e) => {
         e.preventDefault()
-
+        const postid = e.target.likebtn.value
         const pk = {
-            pk: 41
+            pk: postid
         }
 
         const Auth = 'Bearer ' + authTokens.access
@@ -64,7 +64,6 @@ export const AuthProvider = ({ children }) => {
         })
             .then((res) => res.json())
             .then((messages) => {
-                console.log(messages)
 
                 const initialLike = (messages.liked)
                 const likeLen = (messages.count)
@@ -72,8 +71,8 @@ export const AuthProvider = ({ children }) => {
                 setLikeCount(likeLen)
 
 
-                console.log('Current like :' + initialLike + ', count: ' + likeLen)
-                console.log('Prev like :' + like + ', count: ' + likeCount)
+                //  console.log('Current like :' + initialLike + ', count: ' + likeLen)
+                //  console.log('Prev like :' + like + ', count: ' + likeCount)
 
 
             });

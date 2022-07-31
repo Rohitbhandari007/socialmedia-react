@@ -46,7 +46,7 @@ function Feed() {
 
                     // likeState={like} gives true or false value
 
-                    postImage="http://127.0.0.1:8000/media/post/image/virajbhatata_LeZaQcr.jpg"
+                    postImage={note.image}
                 ></PostItem>
             ))}
 

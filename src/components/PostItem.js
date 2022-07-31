@@ -11,6 +11,9 @@ function PostItem({ details, postImage, created, username, likes, likeState, pos
     const bg = useColorModeValue('#f0f0f5', '#1B222E')
     const borderColor = useColorModeValue('1px solid #f0f0f5', 'none')
 
+    const [likeBtnColor, setLikeBtnColor] = useState('whtie')
+
+
 
 
 
@@ -21,6 +24,7 @@ function PostItem({ details, postImage, created, username, likes, likeState, pos
             mt={4}
             bg={bg}
             boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
+
         >
             <Flex
                 flexDir='column'
@@ -83,19 +87,26 @@ function PostItem({ details, postImage, created, username, likes, likeState, pos
                     mb={3}
 
                 >
+
                     <Flex alignItems='center'>
-                        <Icon as={FiHeart}
-                            cursor="pointer"
-                            onClick={likePost}
+                        <form onSubmit={likePost}>
+                            <IconButton
+                                icon={<FiHeart />}
+                                cursor="pointer"
+                                variant='outline'
+                                type='submit'
+                                name='likebtn'
+                                value={postId}
+                            >
+                            </IconButton>
+                        </form>
 
-                        >
-
-                        </Icon>
                         <Text ml={1} fontSize='xs'>
                             {likes} Likes
 
                         </Text>
                     </Flex>
+
                     <Icon as={FiMessageCircle} cursor="pointer"></Icon>
                     <Icon as={FiSave} cursor="pointer"></Icon>
                     <Icon as={FiShare} cursor="pointer"></Icon>
