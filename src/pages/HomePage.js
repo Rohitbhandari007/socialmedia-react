@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Feed from '../components/Feed'
+import CreatePost from '../components/CreatePost'
 import Nav from '../components/Nav'
 import Suggestions from '../components/Suggestions'
 import { Grid, GridItem, Button } from '@chakra-ui/react'
@@ -13,6 +14,7 @@ const HomePage = () => {
                 <Nav />
             </GridItem>
             <GridItem>
+                <CreatePost />
                 <Feed />
             </GridItem>
             <GridItem colSpan={2}>

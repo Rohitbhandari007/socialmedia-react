@@ -1,7 +1,7 @@
 import React from 'react'
 import { Flex, Avatar, Button, Text, useColorModeValue } from '@chakra-ui/react'
 
-function SuggItems() {
+function SuggItems(username) {
     const bg = useColorModeValue('#fff', '#1B222E')
     const btnbgColor = useColorModeValue('#e4e5eb', '#1A202C')
     const btntextColor = useColorModeValue('#000', '#fff')
@@ -28,7 +28,7 @@ function SuggItems() {
 
                 </Avatar>
 
-                <Text ml={1} _hover={{ textDecoration: "underline", color: "whtie" }}>akai</Text>
+                <Text ml={1} _hover={{ textDecoration: "underline", color: "whtie" }}>{username}</Text>
             </Flex>
 
             <Button
