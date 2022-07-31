@@ -5,27 +5,14 @@ import useAxios from '../utils/useAxios'
 import AuthContext from '../context/AuthContext'
 
 
-function PostItem({ details, postImage, created, username, likes, likestest, likeState }) {
+function PostItem({ details, postImage, created, username, likes, likeState, postId }) {
     //let [like, setLike] = useState([])
-    let { likePost } = useContext(AuthContext)
+    let { likePost, like } = useContext(AuthContext)
     const bg = useColorModeValue('#f0f0f5', '#1B222E')
     const borderColor = useColorModeValue('1px solid #f0f0f5', 'none')
 
 
-    // const { image, setImage } = useState(false)
 
-    // let api = useAxios()
-
-    // useEffect(() => {
-    //     getLikes()
-    // }, [])
-
-    // let getLikes = async () => {
-    //     let response = await api.post('/like-unlike/')
-    //     setLike(response.data)
-
-    //     console.log(response.data)
-    // }
 
     return (
         <Box
@@ -99,19 +86,15 @@ function PostItem({ details, postImage, created, username, likes, likestest, lik
                     <Flex alignItems='center'>
                         <Icon as={FiHeart}
                             cursor="pointer"
-                            color='red.500'
                             onClick={likePost}
 
                         >
 
                         </Icon>
                         <Text ml={1} fontSize='xs'>
-                            {likes} Likes | {likestest}  | {likeState}
+                            {likes} Likes
 
                         </Text>
-                        {likeState &&
-                            <Text>Liked</Text>
-                        }
                     </Flex>
                     <Icon as={FiMessageCircle} cursor="pointer"></Icon>
                     <Icon as={FiSave} cursor="pointer"></Icon>

@@ -7,13 +7,13 @@ import { Flex } from '@chakra-ui/react'
 
 function Feed() {
     let [posts, setposts] = useState([])
-    let { authTokens, logoutUser, likeCount, like } = useContext(AuthContext)
+    let { authTokens, logoutUser, like } = useContext(AuthContext)
 
     let api = useAxios()
 
     useEffect(() => {
         getposts()
-    }, [])
+    }, [like])
 
 
     let getposts = async () => {
@@ -21,7 +21,7 @@ function Feed() {
 
         if (response.status === 200) {
             setposts(response.data)
-            console.log(posts)
+            // console.log(posts)
         }
     }
 
@@ -35,15 +35,17 @@ function Feed() {
         >
             {posts.map(note => (
 
-                <PostItem key={note.id}
+                <PostItem
+                    key={note.id}
+                    postId={note.id}
                     details={note.details}
                     title={note.title}
                     created={note.date_created}
                     username={note.author.username}
                     likes={note.like_count}
-                    likestest={likeCount}
-                    //liked={note.liked}
-                    likeState={like}
+
+                    // likeState={like} gives true or false value
+
                     postImage="http://127.0.0.1:8000/media/post/image/virajbhatata_LeZaQcr.jpg"
                 ></PostItem>
             ))}
