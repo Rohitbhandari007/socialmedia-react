@@ -36,7 +36,6 @@ function Feed() {
             {posts.map(note => (
 
                 <PostItem
-                    note={note}
                     key={note.id}
                     postId={note.id}
                     details={note.details}

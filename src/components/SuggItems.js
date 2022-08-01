@@ -1,10 +1,33 @@
-import React from 'react'
+import { React, useState } from 'react'
 import { Flex, Avatar, Button, Text, useColorModeValue } from '@chakra-ui/react'
+import useAxios from '../utils/useAxios'
 
-function SuggItems(username) {
+function SuggItems({ username }) {
+
+    let followinitValue = 'Follow'
+    let [follow, setFolllow] = useState(followinitValue)
+
+    let api = useAxios()
+    let url = '/users/follow-unfollow/'
+
     const bg = useColorModeValue('#fff', '#1B222E')
     const btnbgColor = useColorModeValue('#e4e5eb', '#1A202C')
     const btntextColor = useColorModeValue('#000', '#fff')
+
+    let followUnfollow = async () => {
+        let body = {
+            username: username
+        }
+
+        try {
+            let response = await api.post(url, body)
+            setFolllow(response.data.state)
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
 
     return (
         <Flex
@@ -35,8 +58,9 @@ function SuggItems(username) {
                 bg={btnbgColor}
                 color={btntextColor}
                 _hover={{ backgroundColor: "#000", color: '#fff' }}
+                onClick={followUnfollow}
 
-            >Follow</Button>
+            >{follow && <>{follow} </>}</Button>
         </Flex >
     )
 }
