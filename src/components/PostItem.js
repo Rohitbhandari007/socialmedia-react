@@ -5,7 +5,7 @@ import useAxios from '../utils/useAxios'
 import AuthContext from '../context/AuthContext'
 
 
-function PostItem({ details, postImage, created, username, likes, likeState, postId }) {
+function PostItem({ title, details, postImage, created, username, likes, likeState, postId, note }) {
     //let [like, setLike] = useState([])
     let { likePost, like } = useContext(AuthContext)
     const bg = useColorModeValue('#f0f0f5', '#1B222E')
@@ -14,7 +14,25 @@ function PostItem({ details, postImage, created, username, likes, likeState, pos
     const [likeBtnColor, setLikeBtnColor] = useState('whtie')
 
 
+    let [count, setCount] = useState(likes)
 
+    let api = useAxios()
+    let url = '/like-unlike/'
+    const pk = {
+        pk: postId
+    }
+
+
+    let likePostNew = async () => {
+
+        try {
+            let response = await api.post(url, pk)
+            setCount(response.data.count)
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
 
 
     return (
@@ -75,9 +93,8 @@ function PostItem({ details, postImage, created, username, likes, likeState, pos
 
                 </Image>
                 }
-                <Text fontSize='sm' m={1}>{created}</Text>
-                <Divider></Divider>
-
+                <Text fontSize='sm' ml={2}>{created}</Text>
+                <Text ml={2}>{title}</Text>
                 <Text m={2}>{details}</Text>
                 <Divider></Divider>
                 <Flex
@@ -89,20 +106,17 @@ function PostItem({ details, postImage, created, username, likes, likeState, pos
                 >
 
                     <Flex alignItems='center'>
-                        <form onSubmit={likePost}>
-                            <IconButton
-                                icon={<FiHeart />}
-                                cursor="pointer"
-                                variant='outline'
-                                type='submit'
-                                name='likebtn'
-                                value={postId}
-                            >
-                            </IconButton>
-                        </form>
+                        <IconButton
+                            icon={<FiHeart />}
+                            cursor="pointer"
+                            variant='outline'
+                            type='submit'
+                            onClick={likePostNew}
+                        >
+                        </IconButton>
 
                         <Text ml={1} fontSize='xs'>
-                            {likes} Likes
+                            {count} Likes
 
                         </Text>
                     </Flex>

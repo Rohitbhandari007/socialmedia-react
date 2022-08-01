@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react'
+import { React, useEffect, useState, useContext } from 'react'
 import {
     Flex, Input, IconButton, Text, useColorModeValue, InputGroup,
     Avatar, Button
@@ -6,11 +6,13 @@ import {
 import SuggItems from './SuggItems'
 import { FaSearch } from 'react-icons/fa'
 import useAxios from '../utils/useAxios'
+import AuthContext from '../context/AuthContext'
 
 
 function Suggestions() {
 
     let [users, setUsers] = useState([])
+    let { followUnfollow } = useContext(AuthContext)
 
     const bg = useColorModeValue('none', 'none')
     const btnbgColor = useColorModeValue('#e4e5eb', '#1A202C')
@@ -86,15 +88,19 @@ function Suggestions() {
 
                             </Avatar>
 
-                            <Text ml={1} _hover={{ textDecoration: "underline", color: "whtie" }}>{user.username}</Text>
+                            <Text ml={1} _hover={{ textDecoration: "underline", color: "whtie" }} >{user.username}</Text>
                         </Flex>
-
-                        <Button
-                            bg={btnbgColor}
-                            color={btntextColor}
-                            _hover={{ backgroundColor: "#000", color: '#fff' }}
-
-                        >Follow</Button>
+                        <form onSubmit={followUnfollow}
+                        >
+                            <Button
+                                bg={btnbgColor}
+                                color={btntextColor}
+                                _hover={{ backgroundColor: "#000", color: '#fff' }}
+                                name="follow"
+                                type='submit'
+                                value={user.username}
+                            >Follow</Button>
+                        </form>
                     </Flex >
                 ))}
             </Flex>

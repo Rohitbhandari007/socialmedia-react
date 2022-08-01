@@ -44,6 +44,7 @@ export const AuthProvider = ({ children }) => {
 
         }
     }
+
     let likePost = async (e) => {
         e.preventDefault()
         const postid = e.target.likebtn.value
@@ -78,6 +79,64 @@ export const AuthProvider = ({ children }) => {
             });
         //let data = response.json()
         // console.log(data)
+    }
+
+    let followUnfollow = async (e) => {
+        e.preventDefault()
+        const username = e.target.follow.value
+
+        console.log(username)
+
+
+        const Auth = 'Bearer ' + authTokens.access
+
+        let response = await fetch('http://127.0.0.1:8000/users/follow-unfollow/', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json',
+                'Authorization': Auth,
+            },
+            body: JSON.stringify({ 'username': username })
+        })
+            .then((res) => res.json())
+            .then((messages) => {
+
+                console.log(messages)
+
+
+            });
+
+    }
+
+
+    let createPost = async (e) => {
+
+        e.preventDefault()
+        const Auth = 'Bearer ' + authTokens.access
+        // var data = new FormData();
+        // var imagedata = document.querySelector('input[type="file"]').files[0];
+        // data.append("data", imagedata);
+
+        let response = await fetch('http://127.0.0.1:8000/posts/', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json',
+                'Authorization': Auth,
+            },
+            body: JSON.stringify({ 'details': e.target.details.value, 'image': e.target.image.files[0], 'title': e.target.title.value })
+        })
+            .then((res) => res.json())
+            .then((messages) => {
+
+                console.log(messages)
+                console.log('post created')
+
+
+
+            });
+
     }
     let registerUser = async (e) => {
         e.preventDefault()
@@ -134,6 +193,8 @@ export const AuthProvider = ({ children }) => {
         likePost: likePost,
         likeCount: likeCount,
         like: like,
+        createPost: createPost,
+        followUnfollow: followUnfollow,
 
     }
 
