@@ -112,25 +112,30 @@ export const AuthProvider = ({ children }) => {
 
     let createPost = async (e) => {
 
+        e.preventDefault()
         const Auth = 'Bearer ' + authTokens.access
         // var data = new FormData();
         // var imagedata = document.querySelector('input[type="file"]').files[0];
         // data.append("data", imagedata);
 
+        let title = e.target.title.value
+        let details = e.target.details.value
+        let image = e.target.image.files[0]
+
+        console.log(title, details, image)
+
         let response = await fetch('http://127.0.0.1:8000/posts/', {
             method: 'POST',
             headers: {
-                'Accept': 'application/json',
-                'Content-type': 'application/json',
+                'Content-Type': 'multipart/form-data',
                 'Authorization': Auth,
             },
-            body: JSON.stringify({ 'details': e.target.details.value, 'image': e.target.image.files[0], 'title': e.target.title.value })
+            body: JSON.stringify({ 'title': title, 'details': details, 'image': image })
         })
             .then((res) => res.json())
             .then((messages) => {
 
                 console.log(messages)
-                console.log('post created')
 
 
 

@@ -7,13 +7,13 @@ import { Flex } from '@chakra-ui/react'
 
 function Feed() {
     let [posts, setposts] = useState([])
-    let { authTokens, logoutUser, like } = useContext(AuthContext)
+    let { authTokens, logoutUser } = useContext(AuthContext)
 
     let api = useAxios()
 
     useEffect(() => {
         getposts()
-    }, [like])
+    }, [])
 
 
     let getposts = async () => {
@@ -21,7 +21,7 @@ function Feed() {
 
         if (response.status === 200) {
             setposts(response.data)
-            // console.log(posts)
+            console.log(posts)
         }
     }
 
