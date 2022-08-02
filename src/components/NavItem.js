@@ -3,7 +3,7 @@ import { Flex, Icon, Text, Menu, MenuButton, Button } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
 
-function NavItem({ icon, title, linkto }) {
+function NavItem({ icon, title, linkTo }) {
 
 
     return (
@@ -13,15 +13,11 @@ function NavItem({ icon, title, linkto }) {
             mt={2}
         >
             <Menu placement='right'>
-                <Link
-                    to={linkto}
+                <Link to={linkTo}
                 >
                     <Button w='100%' display='flex' flexDir='row' justifyContent='space-between' variant='ghost'>
                         <Text ml={2}>{title}</Text>
                         <Icon as={icon} fontSize="xl"></Icon>
-
-
-
                     </Button>
                 </Link>
 

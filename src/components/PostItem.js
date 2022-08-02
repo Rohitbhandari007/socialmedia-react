@@ -1,16 +1,28 @@
 import { React, useState, useEffect, useContext } from 'react'
-import { Box, Flex, Text, Image, Avatar, IconButton, Icon, Divider, useColorModeValue, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
+import {
+    Box, Flex, Text, Image, Avatar, IconButton, Icon, Divider, useColorModeValue, Menu, MenuButton, MenuItem, MenuList, Tooltip, Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    Button,
+    useDisclosure,
+} from '@chakra-ui/react'
 import { FiMenu, FiHeart, FiMessageCircle, FiSave, FiShare } from 'react-icons/fi'
 import useAxios from '../utils/useAxios'
 import AuthContext from '../context/AuthContext'
 
 
-function PostItem({ title, details, postImage, created, username, likes, postId }) {
+function PostItem({ title, details, postImage, created, username, likes, postId, likedBy }) {
 
     const bg = useColorModeValue('#f0f0f5', '#1B222E')
     const borderColor = useColorModeValue('1px solid #f0f0f5', 'none')
 
-    const [likeBtnColor, setLikeBtnColor] = useState('whtie')
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
+
 
 
     let [count, setCount] = useState(likes)
@@ -27,6 +39,7 @@ function PostItem({ title, details, postImage, created, username, likes, postId 
         try {
             let response = await api.post(url, pk)
             setCount(response.data.count)
+            console.log(response.data)
         } catch (error) {
             console.log(error)
         }
@@ -114,10 +127,28 @@ function PostItem({ title, details, postImage, created, username, likes, postId 
                         >
                         </IconButton>
 
-                        <Text ml={1} fontSize='xs'>
-                            {count} Likes
+                        <Tooltip >
+                            <Text ml={1} fontSize='xs' cursor='pointer' onClick={onOpen}>
+                                {count} Likes
+                            </Text>
+                        </Tooltip>
+                        <Modal isOpen={isOpen} onClose={onClose} size='xs'>
+                            <ModalOverlay />
+                            <ModalContent>
+                                <ModalCloseButton alignSelf='center' />
 
-                        </Text>
+                                <ModalBody>
+
+                                    {likedBy.map(liked => (
+                                        <div
+                                            key={liked.id}
+
+                                        >{liked.username}</div>
+                                    ))}
+                                </ModalBody>
+                            </ModalContent>
+                        </Modal>
+
                     </Flex>
 
                     <Icon as={FiMessageCircle} cursor="pointer"></Icon>

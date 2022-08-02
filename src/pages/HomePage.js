@@ -17,7 +17,7 @@ const HomePage = () => {
                 <CreatePost />
                 <Feed />
             </GridItem>
-            <GridItem colSpan={2}>
+            <GridItem>
                 <Suggestions />
             </GridItem>
         </Grid>

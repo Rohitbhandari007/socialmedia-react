@@ -1,5 +1,6 @@
 import React from 'react'
 import Nav from '../components/Nav'
+import Profile from '../components/Profile'
 import { Grid, GridItem, Button } from '@chakra-ui/react'
 
 
@@ -11,11 +12,9 @@ function ProfilePage() {
             </GridItem>
             <GridItem>
 
-                yes
+                <Profile />
             </GridItem>
-            <GridItem colSpan={2}>
-                lol
-            </GridItem>
+
         </Grid>
     )
 }
