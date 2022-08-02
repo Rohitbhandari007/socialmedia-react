@@ -14,7 +14,6 @@ const HomePage = () => {
                 <Nav />
             </GridItem>
             <GridItem>
-                <CreatePost />
                 <Feed />
             </GridItem>
             <GridItem>

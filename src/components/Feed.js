@@ -21,6 +21,7 @@ function Feed() {
 
         if (response.status === 200) {
             setposts(response.data)
+            console.log(response.data)
 
         }
     }
@@ -44,7 +45,7 @@ function Feed() {
                     username={note.author.username}
                     likes={note.like_count}
                     likedBy={note.liked}
-
+                    iliked={note.iliked}
                     // likeState={like} gives true or false value
 
                     postImage={note.image}

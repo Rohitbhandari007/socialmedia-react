@@ -3,8 +3,6 @@ import {
     Box, Flex, Text, Image, Avatar, IconButton, Icon, Divider, useColorModeValue, Menu, MenuButton, MenuItem, MenuList, Tooltip, Modal,
     ModalOverlay,
     ModalContent,
-    ModalHeader,
-    ModalFooter,
     ModalBody,
     ModalCloseButton,
     Button,
@@ -15,17 +13,19 @@ import useAxios from '../utils/useAxios'
 import AuthContext from '../context/AuthContext'
 
 
-function PostItem({ title, details, postImage, created, username, likes, postId, likedBy }) {
+function PostItem({ title, details, postImage, created, username, likes, postId, likedBy, iliked }) {
 
     const bg = useColorModeValue('#f0f0f5', '#1B222E')
     const borderColor = useColorModeValue('1px solid #f0f0f5', 'none')
+    const datetextColor = useColorModeValue('#2f3249', 'whiteAlpha.400')
+    const titletextColor = useColorModeValue('#23262e', 'whiteAlpha.800')
+    const detailtextColor = useColorModeValue('#2f3249', 'whiteAlpha.700')
+
 
     const { isOpen, onOpen, onClose } = useDisclosure()
-
-
-
-
+    let [likebtn, setlikebtn] = useState(iliked)
     let [count, setCount] = useState(likes)
+
 
     let api = useAxios()
     let url = '/like-unlike/'
@@ -39,7 +39,7 @@ function PostItem({ title, details, postImage, created, username, likes, postId,
         try {
             let response = await api.post(url, pk)
             setCount(response.data.count)
-            console.log(response.data)
+            setlikebtn(response.data.liked)
         } catch (error) {
             console.log(error)
         }
@@ -79,7 +79,7 @@ function PostItem({ title, details, postImage, created, username, likes, postId,
                         as={IconButton}
                         aria-label='Options'
                         icon={<FiMenu />}
-                        variant='outline'
+                        variant='ghost'
                     />
                     <MenuList>
                         <MenuItem>
@@ -97,7 +97,7 @@ function PostItem({ title, details, postImage, created, username, likes, postId,
             >
                 {postImage && <Image
                     alignSelf='center'
-                    src={postImage}
+                    src={'http://127.0.0.1:8000' + postImage}
                     h='50vh' w={{ sm: '50vh', md: '80vh' }}
                     objectFit='cover'
                     objectPosition='center center'
@@ -105,9 +105,11 @@ function PostItem({ title, details, postImage, created, username, likes, postId,
 
                 </Image>
                 }
-                <Text fontSize='sm' ml={2}>{created}</Text>
-                <Text ml={2}>{title}</Text>
-                <Text m={2}>{details}</Text>
+                <Text fontSize='xs' ml={2} color={datetextColor}>{created}</Text>
+                <Text ml={2} fontSize="sm" color={titletextColor}>{title}
+                    <Text fontSize="xs" color={detailtextColor}>{details}</Text>
+
+                </Text>
                 <Divider></Divider>
                 <Flex
                     flexDirection='row'
@@ -121,12 +123,16 @@ function PostItem({ title, details, postImage, created, username, likes, postId,
                         <IconButton
                             icon={<FiHeart />}
                             cursor="pointer"
-                            variant='outline'
+                            variant='ghost'
                             type='submit'
                             onClick={likePostNew}
+                            color={likebtn ? 'red.400' : 'white'}
+                            _hover={{
+
+                                color: "red.400",
+                            }}
                         >
                         </IconButton>
-
                         <Tooltip >
                             <Text ml={1} fontSize='xs' cursor='pointer' onClick={onOpen}>
                                 {count} Likes
@@ -136,24 +142,37 @@ function PostItem({ title, details, postImage, created, username, likes, postId,
                             <ModalOverlay />
                             <ModalContent>
                                 <ModalCloseButton alignSelf='center' />
-
                                 <ModalBody>
-
                                     {likedBy.map(liked => (
                                         <div
                                             key={liked.id}
-
                                         >{liked.username}</div>
                                     ))}
                                 </ModalBody>
                             </ModalContent>
                         </Modal>
-
                     </Flex>
-
-                    <Icon as={FiMessageCircle} cursor="pointer"></Icon>
-                    <Icon as={FiSave} cursor="pointer"></Icon>
-                    <Icon as={FiShare} cursor="pointer"></Icon>
+                    <IconButton
+                        _hover={{
+                            color: "whiteAlpha.500",
+                        }}
+                        icon={<FiMessageCircle />}
+                        cursor="pointer"
+                        variant='ghost'>
+                    </IconButton>
+                    <IconButton
+                        _hover={{
+                            color: "whiteAlpha.500",
+                        }} icon={<FiSave />}
+                        cursor="pointer"
+                        variant='ghost'>
+                    </IconButton>
+                    <IconButton
+                        _hover={{
+                            color: "whiteAlpha.500",
+                        }} icon={<FiShare />}
+                        cursor="pointer"
+                        variant='ghost'></IconButton>
                 </Flex>
             </Flex>
         </Box >

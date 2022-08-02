@@ -16,7 +16,7 @@ function NavItem({ icon, title, linkTo }) {
                 <Link to={linkTo}
                 >
                     <Button w='100%' display='flex' flexDir='row' justifyContent='space-between' variant='ghost'>
-                        <Text ml={2}>{title}</Text>
+                        <Text ml={2} fontSize='sm' fontWeight='500'>{title}</Text>
                         <Icon as={icon} fontSize="xl"></Icon>
                     </Button>
                 </Link>

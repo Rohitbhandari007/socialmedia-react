@@ -5,6 +5,7 @@ import NavItem from './NavItem'
 import { ColorModeSwitcher } from '../ColorModeSwitcher'
 import AuthContext from '../context/AuthContext'
 import useAxios from '../utils/useAxios'
+import CreatePost from './CreatePost'
 
 
 //chakra ui imports
@@ -69,9 +70,11 @@ function Nav() {
                 as="nav"
                 alignItems="start"
             >
+
                 <Flex
                     justifyContent='space-between'
                     w="100%"
+                    alignItems='center'
                 >
                     <ColorModeSwitcher
                         background="none"
@@ -79,7 +82,6 @@ function Nav() {
                     </ColorModeSwitcher>
 
                 </Flex>
-
                 <NavItem icon={FiHome} title={"Home"} linkTo="/"></NavItem>
                 <NavItem icon={FiUser} title={"Profile"} linkTo='/profile'></NavItem>
                 <NavItem icon={FiUmbrella} title={"Notifications"} linkTo='/' ></NavItem>
@@ -87,7 +89,11 @@ function Nav() {
                 <NavItem icon={FiBookmark} title={"Saved Posts"} linkTo='/' ></NavItem>
                 <NavItem icon={FiSettings} title={"Settings"} linkTo='/'></NavItem>
 
+
+
             </Flex>
+            <CreatePost />
+
             <Flex
                 flexDir='row'
                 alignItems='center'

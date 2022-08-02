@@ -11,9 +11,9 @@ function ProfilePage() {
                 <Nav />
             </GridItem>
             <GridItem>
-
                 <Profile />
             </GridItem>
+
 
         </Grid>
     )

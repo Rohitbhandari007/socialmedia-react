@@ -47,7 +47,7 @@ function CreatePost() {
 
     return (
         <>
-            <Button mt={2} variant='outline' onClick={onOpen}>Create Post</Button>
+            <Button mt={2} onClick={onOpen}><Text fontSize='sm' fontWeight='400'>Create Post</Text></Button>
             <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <form onSubmit={postCreate}>
