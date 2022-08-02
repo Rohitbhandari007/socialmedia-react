@@ -1,7 +1,9 @@
 import React from 'react'
-import { Flex, Icon, Text, Menu, Link, MenuButton } from '@chakra-ui/react'
+import { Flex, Icon, Text, Menu, MenuButton, Button } from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
 
-function NavItem({ icon, title }) {
+
+function NavItem({ icon, title, linkto }) {
 
 
     return (
@@ -12,20 +14,17 @@ function NavItem({ icon, title }) {
         >
             <Menu placement='right'>
                 <Link
-                    p={3}
-                    borderRadius={8}
-                    _hover={{ backgroundColor: "grey", color: "#000" }}
-
-                    width="100%"
-
+                    to={linkto}
                 >
-                    <MenuButton w="100%">
-                        <Flex flexDirection="row">
-                            <Icon as={icon} fontSize="xl"></Icon>
-                            <Text ml={5}>{title}</Text>
-                        </Flex>
-                    </MenuButton>
+                    <Button w='100%' display='flex' flexDir='row' justifyContent='space-between' variant='ghost'>
+                        <Text ml={2}>{title}</Text>
+                        <Icon as={icon} fontSize="xl"></Icon>
+
+
+
+                    </Button>
                 </Link>
+
             </Menu>
 
         </Flex >

@@ -59,6 +59,7 @@ function SuggItems({ username }) {
                 color={btntextColor}
                 _hover={{ backgroundColor: "#000", color: '#fff' }}
                 onClick={followUnfollow}
+                width='20vh'
 
             >{follow && <>{follow} </>}</Button>
         </Flex >

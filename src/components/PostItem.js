@@ -6,7 +6,7 @@ import AuthContext from '../context/AuthContext'
 
 
 function PostItem({ title, details, postImage, created, username, likes, postId }) {
-    //let [like, setLike] = useState([])
+
     const bg = useColorModeValue('#f0f0f5', '#1B222E')
     const borderColor = useColorModeValue('1px solid #f0f0f5', 'none')
 

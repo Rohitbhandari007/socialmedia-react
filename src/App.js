@@ -7,6 +7,7 @@ import { AuthProvider } from './context/AuthContext'
 import Login from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import PrivateRoute from './utils/PrivateRoute';
+import ProfilePage from './pages/ProfilePage';
 import Register from './components/auth/Register';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
@@ -27,6 +28,9 @@ function App() {
             <Route path='/register'>
               <Register />
 
+            </Route>
+            <Route path='/profile'>
+              <ProfilePage />
             </Route>
 
           </Switch>

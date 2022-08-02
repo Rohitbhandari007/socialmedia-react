@@ -1,6 +1,7 @@
 import { React, useContext, useRef, useState, useEffect } from 'react'
 import { FiPower, FiHome, FiUser, FiUmbrella, FiSettings, FiBookmark, FiMessageCircle } from 'react-icons/fi'
 import { HiDotsVertical } from 'react-icons/hi'
+import { Link } from 'react-router-dom'
 import NavItem from './NavItem'
 import { ColorModeSwitcher } from '../ColorModeSwitcher'
 import AuthContext from '../context/AuthContext'
@@ -80,8 +81,8 @@ function Nav() {
 
                 </Flex>
 
-                <NavItem icon={FiHome} title={"Home"} ></NavItem>
-                <NavItem icon={FiUser} title={"Profile"} ></NavItem>
+                <NavItem icon={FiHome} title={"Home"} linkto="/"></NavItem>
+                <NavItem icon={FiUser} title={"Profile"} linkto='/profile'></NavItem>
                 <NavItem icon={FiUmbrella} title={"Notifications"} ></NavItem>
                 <NavItem icon={FiMessageCircle} title={"Messages"} ></NavItem>
                 <NavItem icon={FiBookmark} title={"Saved Posts"} ></NavItem>

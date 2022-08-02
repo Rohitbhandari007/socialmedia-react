@@ -17,10 +17,11 @@ function Feed() {
 
 
     let getposts = async () => {
-        let response = await api.get('/')
+        let response = await api.get('/posts/')
 
         if (response.status === 200) {
             setposts(response.data)
+            console.log(response.data)
             console.log(posts)
         }
     }
