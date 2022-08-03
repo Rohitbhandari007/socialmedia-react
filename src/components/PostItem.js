@@ -11,6 +11,7 @@ import {
 import { FiMenu, FiHeart, FiMessageCircle, FiSave, FiShare } from 'react-icons/fi'
 import useAxios from '../utils/useAxios'
 import AuthContext from '../context/AuthContext'
+import { Link } from 'react-router-dom'
 
 
 function PostItem({ title, details, postImage, created, username, likes, postId, likedBy, iliked }) {
@@ -71,7 +72,9 @@ function PostItem({ title, details, postImage, created, username, likes, postId,
                     justifyContent='space-around'
                 >
                     <Avatar size='sm'></Avatar>
-                    <Text fontSize='sm' m={1} cursor='pointer' fontWeight='bold'>{username}</Text>
+                    <Link to={"/user/" + username}>
+                        <Text fontSize='sm' m={1} cursor='pointer' fontWeight='bold'>{username}</Text>
+                    </Link>
                 </Flex>
 
                 <Menu>

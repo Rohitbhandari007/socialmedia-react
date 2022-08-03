@@ -21,7 +21,6 @@ function Feed() {
 
         if (response.status === 200) {
             setposts(response.data)
-            console.log(response.data)
 
         }
     }

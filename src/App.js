@@ -8,6 +8,7 @@ import Login from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import PrivateRoute from './utils/PrivateRoute';
 import ProfilePage from './pages/ProfilePage';
+import PublicProfilePage from './pages/PublicProfilePage';
 import Register from './components/auth/Register';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
@@ -27,12 +28,13 @@ function App() {
             </Route>
             <Route path='/register'>
               <Register />
-
             </Route>
             <Route path='/profile'>
               <ProfilePage />
             </Route>
-
+            <Route path='/user/:username'>
+              <PublicProfilePage />
+            </Route>
           </Switch>
         </AuthProvider>
       </Router>

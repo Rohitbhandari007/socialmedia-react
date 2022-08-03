@@ -1,6 +1,7 @@
 import { React, useState } from 'react'
 import { Flex, Avatar, Button, Text, useColorModeValue } from '@chakra-ui/react'
 import useAxios from '../utils/useAxios'
+import { Link } from 'react-router-dom'
 
 function SuggItems({ username, ifollow }) {
 
@@ -51,8 +52,9 @@ function SuggItems({ username, ifollow }) {
                 <Avatar size='sm'>
 
                 </Avatar>
-
-                <Text ml={1} _hover={{ textDecoration: "underline", color: "whtie" }} fontSize='sm' color={textColor}>{username}</Text>
+                <Link to={'/user/' + username}>
+                    <Text ml={1} _hover={{ textDecoration: "underline", color: "whtie" }} fontSize='sm' color={textColor}>{username}</Text>
+                </Link>
             </Flex>
 
             <Button

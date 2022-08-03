@@ -26,7 +26,6 @@ function Profile() {
             let response = await api.get('/users/profile/')
             console.log(response.data)
             setUserinfo(response.data)
-
         } catch (error) {
             console.log(error)
         }
@@ -35,7 +34,6 @@ function Profile() {
 
         try {
             let response = await api.get('/')
-            console.log(response.data)
             setuserPosts(response.data)
 
         } catch (error) {
