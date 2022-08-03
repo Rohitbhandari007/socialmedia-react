@@ -46,8 +46,6 @@ function Feed() {
                     likes={note.like_count}
                     likedBy={note.liked}
                     iliked={note.iliked}
-                    // likeState={like} gives true or false value
-
                     postImage={note.image}
                 ></PostItem>
             ))}

@@ -79,7 +79,7 @@ function PostItem({ title, details, postImage, created, username, likes, postId,
                         as={IconButton}
                         aria-label='Options'
                         icon={<FiMenu />}
-                        variant='ghost'
+                        variant='outline'
                     />
                     <MenuList>
                         <MenuItem>
@@ -107,8 +107,8 @@ function PostItem({ title, details, postImage, created, username, likes, postId,
                 }
                 <Text fontSize='xs' ml={2} color={datetextColor}>{created}</Text>
                 <Text ml={2} fontSize="sm" color={titletextColor}>{title}
-                    <Text fontSize="xs" color={detailtextColor}>{details}</Text>
-
+                </Text>
+                <Text ml={2} fontSize="xs" color={detailtextColor}>{details}
                 </Text>
                 <Divider></Divider>
                 <Flex
