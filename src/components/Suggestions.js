@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react'
-import { Flex, Input, IconButton, Text, useColorModeValue, InputGroup, Divider } from '@chakra-ui/react'
+import { Flex, Input, IconButton, Text, useColorModeValue, InputGroup, Divider, Popover, PopoverCloseButton, PopoverBody, PopoverHeader, PopoverContent, Button, PopoverTrigger } from '@chakra-ui/react'
 import SuggItems from './SuggItems'
 import SearchResults from './SearchResults'
 import { FaSearch } from 'react-icons/fa'
@@ -14,12 +14,12 @@ function Suggestions() {
     const bg = useColorModeValue('none', 'none')
 
 
+
     let api = useAxios()
 
     useEffect(() => {
         getUsers()
     }, [])
-
 
     let getUsers = async () => {
 
@@ -34,21 +34,17 @@ function Suggestions() {
 
     }
 
-    let searchUrl = '/users/userlist/?search='
-
 
     let searchUsers = async () => {
 
+        let searchUrl = '/users/userlist/?search='
         let searchvalue = document.getElementById('search').value
-        console.log(searchvalue)
         let newUrl = searchUrl + searchvalue
 
-
         try {
-            console.log(searchvalue)
             let response = await api.get(newUrl)
+            console.log(response.data)
             setQuery(response.data)
-            console.log(query)
         } catch (error) {
             console.log(error)
         }
@@ -60,41 +56,60 @@ function Suggestions() {
             mt={4}
             ml={4}
             bg={bg}
-            right={1}
+            right={4}
             position="fixed"
             height='100vh'
             width='50vh'
             float='right'
+            overflowY='auto'
+            overflowX='hidden'
         >
             <Flex>
                 <InputGroup>
                     <Input variant='filled' placeholder='Search.. ' id="search" />
-                    <IconButton
-                        aria-label='Search database'
-                        icon={<FaSearch />}
-                        ml={1}
-                        onClick={searchUsers}
-                    />
-
                 </InputGroup>
+                <Flex>
 
+                    <Popover scrollBehavior='inside '
+                    >
+                        <PopoverTrigger>
+                            <IconButton
+                                aria-label='Search database'
+                                id='searchbtn'
+                                icon={<FaSearch />}
+                                ml={1}
+                                onClick={searchUsers}
+                            />
+                        </PopoverTrigger>
+                        <PopoverContent>
+                            <PopoverCloseButton />
+                            <PopoverHeader>Search Results</PopoverHeader>
+                            <PopoverBody>
+                                {query.map(item => (
+                                    <SuggItems
+                                        key={item.id}
+                                        username={item.username}
+
+                                    >
+                                    </SuggItems>
+                                ))}</PopoverBody>
+                        </PopoverContent>
+                    </Popover>
+
+                </Flex>
             </Flex>
-            {/* {searchedUsers.map(item => (
-                <SearchResults
-                    key={item.id}
-                    searchItem={item.username}>
 
-                </SearchResults>
-            ))} */}
+
+
             <Divider mt={1}></Divider>
 
             <Flex flexDir='column'>
-                <Text m={3}>Suggestions</Text>
 
                 {users.map(user => (
                     <SuggItems
                         key={user.id}
                         username={user.username}
+                        ifollow={user.ifollow}
                     >
                     </SuggItems>
 

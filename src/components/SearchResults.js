@@ -1,9 +1,16 @@
-import { Flex } from '@chakra-ui/react'
+import { Avatar, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
 
 function SearchResults(searchItem) {
+
+
     return (
-        <Flex>{searchItem}</Flex>
+
+        <Flex>
+            <Avatar size='xs'></Avatar>
+            <Text>Username</Text>
+
+        </Flex>
     )
 }
 

@@ -2,17 +2,16 @@ import { React, useState } from 'react'
 import { Flex, Avatar, Button, Text, useColorModeValue } from '@chakra-ui/react'
 import useAxios from '../utils/useAxios'
 
-function SuggItems({ username }) {
+function SuggItems({ username, ifollow }) {
 
-    let followinitValue = 'Follow'
-    let [follow, setFolllow] = useState(followinitValue)
-
+    let [follow, setFolllow] = useState(ifollow)
     let api = useAxios()
     let url = '/users/follow-unfollow/'
 
     const bg = useColorModeValue('#fff', '#1B222E')
     const btnbgColor = useColorModeValue('#e4e5eb', '#1A202C')
-    const btntextColor = useColorModeValue('#000', '#fff')
+    const btntextColor = useColorModeValue('#000', 'whiteAlpha.800')
+    const textColor = useColorModeValue("#000", 'whiteAlpha.800')
 
     let followUnfollow = async () => {
         let body = {
@@ -21,7 +20,9 @@ function SuggItems({ username }) {
 
         try {
             let response = await api.post(url, body)
-            setFolllow(response.data.state)
+            setFolllow(response.data.follow)
+            console.log(follow)
+            console.log(response.data.state)
 
         } catch (error) {
             console.log(error)
@@ -51,17 +52,19 @@ function SuggItems({ username }) {
 
                 </Avatar>
 
-                <Text ml={1} _hover={{ textDecoration: "underline", color: "whtie" }}>{username}</Text>
+                <Text ml={1} _hover={{ textDecoration: "underline", color: "whtie" }} fontSize='sm' color={textColor}>{username}</Text>
             </Flex>
 
             <Button
                 bg={btnbgColor}
                 color={btntextColor}
-                _hover={{ backgroundColor: "#000", color: '#fff' }}
                 onClick={followUnfollow}
                 width='20vh'
 
-            >{follow && <>{follow} </>}</Button>
+            >{follow ?
+                <Text size='sm' fontWeight="500">Unfollow</Text> :
+                <Text size='sm' fontWeight='500'>Follow</Text>}
+            </Button>
         </Flex >
     )
 }
