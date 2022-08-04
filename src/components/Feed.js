@@ -42,6 +42,7 @@ function Feed() {
                     title={note.title}
                     created={note.date_created}
                     username={note.author.username}
+                    uid={note.author.id}
                     likes={note.like_count}
                     likedBy={note.liked}
                     iliked={note.iliked}

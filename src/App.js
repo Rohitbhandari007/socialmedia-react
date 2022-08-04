@@ -32,7 +32,7 @@ function App() {
             <Route path='/profile'>
               <ProfilePage />
             </Route>
-            <Route path='/user/:username'>
+            <Route path='/user/:username/:id'>
               <PublicProfilePage />
             </Route>
           </Switch>

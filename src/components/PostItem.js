@@ -14,7 +14,7 @@ import AuthContext from '../context/AuthContext'
 import { Link } from 'react-router-dom'
 
 
-function PostItem({ title, details, postImage, created, username, likes, postId, likedBy, iliked }) {
+function PostItem({ title, details, postImage, created, username, likes, postId, likedBy, iliked, uid }) {
 
     const bg = useColorModeValue('#f0f0f5', '#1B222E')
     const borderColor = useColorModeValue('1px solid #f0f0f5', 'none')
@@ -72,7 +72,7 @@ function PostItem({ title, details, postImage, created, username, likes, postId,
                     justifyContent='space-around'
                 >
                     <Avatar size='sm'></Avatar>
-                    <Link to={"/user/" + username}>
+                    <Link to={"/user/" + username + "/" + uid} >
                         <Text fontSize='sm' m={1} cursor='pointer' fontWeight='bold'>{username}</Text>
                     </Link>
                 </Flex>
@@ -82,7 +82,7 @@ function PostItem({ title, details, postImage, created, username, likes, postId,
                         as={IconButton}
                         aria-label='Options'
                         icon={<FiMenu />}
-                        variant='outline'
+                        variant='ghost'
                     />
                     <MenuList>
                         <MenuItem>

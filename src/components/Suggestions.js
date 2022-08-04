@@ -88,6 +88,7 @@ function Suggestions() {
                                 {query.map(item => (
                                     <SuggItems
                                         key={item.id}
+                                        uid={item.id}
                                         username={item.username}
 
                                     >
@@ -108,6 +109,8 @@ function Suggestions() {
                 {users.map(user => (
                     <SuggItems
                         key={user.id}
+                        uid={user.id}
+
                         username={user.username}
                         ifollow={user.ifollow}
                     >
