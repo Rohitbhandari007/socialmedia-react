@@ -27,7 +27,6 @@ function Suggestions() {
             let response = await api.get('/users/suggestions/')
             setUsers(response.data)
 
-
         } catch (error) {
             console.log(error)
         }
@@ -61,17 +60,17 @@ function Suggestions() {
             height='100vh'
             width='50vh'
             float='right'
-            overflowY='auto'
-            overflowX='hidden'
+
+
         >
             <Flex>
                 <InputGroup>
                     <Input variant='filled' placeholder='Search.. ' id="search" />
                 </InputGroup>
-                <Flex>
+                <Flex
+                >
 
-                    <Popover scrollBehavior='inside '
-                    >
+                    <Popover>
                         <PopoverTrigger>
                             <IconButton
                                 aria-label='Search database'
@@ -86,13 +85,12 @@ function Suggestions() {
                             <PopoverHeader>Search Results</PopoverHeader>
                             <PopoverBody>
                                 {query.map(item => (
-                                    <SuggItems
+                                    <SearchResults
                                         key={item.id}
                                         uid={item.id}
                                         username={item.username}
-                                        ifollow={item.ifollow}
                                     >
-                                    </SuggItems>
+                                    </SearchResults>
                                 ))}</PopoverBody>
                         </PopoverContent>
                     </Popover>
@@ -110,7 +108,7 @@ function Suggestions() {
                     <SuggItems
                         key={user.id}
                         uid={user.id}
-
+                        profile_image={user.profile_image}
                         username={user.username}
                         ifollow={user.ifollow}
                     >

@@ -21,6 +21,7 @@ function Feed() {
 
         if (response.status === 200) {
             setposts(response.data)
+            console.log(response.data)
 
         }
     }
@@ -42,6 +43,7 @@ function Feed() {
                     title={note.title}
                     created={note.date_created}
                     username={note.author.username}
+                    profile_image={note.author.profile_image}
                     uid={note.author.id}
                     likes={note.like_count}
                     likedBy={note.liked}

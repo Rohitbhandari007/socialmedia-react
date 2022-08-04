@@ -70,7 +70,7 @@ function PublicProfilePage(props) {
             <GridItem>
                 <Flex flexDir='row' justifyContent='space-between' w='80vh' mt={2}>
                     <Flex flexDir='column' w="50vh" alignItems='start'>
-                        <Avatar size='lg'></Avatar>
+                        <Avatar size='lg' src={'http://127.0.0.1:8000' + user.profile_image}></Avatar>
                         <Text fontSize='lg'>{user.username}</Text>
                         <Text fontSize='sm'>Nice quote is not a bio</Text>
 

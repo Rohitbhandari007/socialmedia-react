@@ -44,7 +44,7 @@ function Nav() {
 
         if (response.status === 200) {
             const data = response.data
-            setUser(data.username)
+            setUser(data)
         }
     }
 
@@ -106,9 +106,11 @@ function Nav() {
                 >
 
                     <Flex alignItems='center'>
-                        <Avatar size='md' border='2px solid gray'>
+                        <Avatar size='md' border='2px solid gray'
+                            src={'http://127.0.0.1:8000' + user.profile_image}
+                        >
                         </Avatar>
-                        <Text ml={2}>{user}</Text>
+                        <Text ml={2}>{user.username}</Text>
                     </Flex>
                     <Menu>
                         <MenuButton

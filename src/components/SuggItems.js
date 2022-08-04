@@ -3,7 +3,7 @@ import { Flex, Avatar, Button, Text, useColorModeValue } from '@chakra-ui/react'
 import useAxios from '../utils/useAxios'
 import { Link } from 'react-router-dom'
 
-function SuggItems({ username, ifollow, uid }) {
+function SuggItems({ username, ifollow, uid, profile_image }) {
 
     let [follow, setFolllow] = useState(ifollow)
     let api = useAxios()
@@ -49,8 +49,9 @@ function SuggItems({ username, ifollow, uid }) {
                 alignItems='center'
                 w="25vh"
             >
-                <Avatar size='sm'>
-
+                <Avatar size='sm'
+                    src={profile_image}
+                >
                 </Avatar>
                 <Link to={'/user/' + username + "/" + uid}>
                     <Text ml={1} _hover={{ textDecoration: "underline", color: "whtie" }} fontSize='sm' color={textColor}>{username}</Text>

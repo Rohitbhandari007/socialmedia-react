@@ -44,7 +44,7 @@ function Profile() {
         <>
             <Flex flexDir='row' justifyContent='space-between' w='80vh' mt={2}>
                 <Flex flexDir='column' w="50vh" alignItems='start'>
-                    <Avatar size='lg'></Avatar>
+                    <Avatar size='lg' src={'http://127.0.0.1:8000' + userinfo.profile_image}></Avatar>
                     <Text fontSize='lg'>{userinfo.username}</Text>
                     <Text fontSize='sm'>Nice quote is not a bio</Text>
 
@@ -74,6 +74,7 @@ function Profile() {
                         title={note.title}
                         created={note.date_created}
                         username={note.author.username}
+                        profile_image={note.author.profile_image}
                         likes={note.like_count}
                         likedBy={note.liked}
                         iliked={note.iliked}
