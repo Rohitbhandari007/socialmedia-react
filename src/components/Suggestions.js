@@ -90,7 +90,7 @@ function Suggestions() {
                                         key={item.id}
                                         uid={item.id}
                                         username={item.username}
-
+                                        ifollow={item.ifollow}
                                     >
                                     </SuggItems>
                                 ))}</PopoverBody>

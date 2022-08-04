@@ -92,63 +92,69 @@ function Nav() {
 
 
             </Flex>
-            <CreatePost />
-
             <Flex
-                flexDir='row'
-                alignItems='center'
-                p={2}
-                boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
-                bg={bgBottom}
+                flexDir='column'
             >
-                <Flex alignItems='center'>
-                    <Avatar size='md' border='2px solid gray'>
-                    </Avatar>
-                    <Text ml={2}>{user}</Text>
-                </Flex>
-                <Menu>
-                    <MenuButton
-                        as={IconButton}
-                        aria-label='Options'
-                        icon={<HiDotsVertical />}
-                        variant='ghost'
-                        ml='6vh'
-                    />
-                    <MenuList>
-                        <MenuItem onClick={onOpen}>
-                            Logout
-                        </MenuItem>
-
-                        <MenuItem>
-                            Help
-                        </MenuItem>
-                    </MenuList>
-                </Menu>
-                <AlertDialog
-                    motionPreset='slideInBottom'
-                    leastDestructiveRef={cancelRef}
-                    onClose={onClose}
-                    isOpen={isOpen}
-                    isCentered
+                <CreatePost></CreatePost>
+                <Flex
+                    flexDir='row'
+                    alignItems='center'
+                    p={2}
+                    boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
+                    justifyContent='space-between'
+                    bg={bgBottom}
                 >
-                    <AlertDialogOverlay />
 
-                    <AlertDialogContent>
-                        <AlertDialogHeader>Logout</AlertDialogHeader>
-                        <AlertDialogCloseButton />
-                        <AlertDialogBody>
-                            Are you sure you want to Logout?
-                        </AlertDialogBody>
-                        <AlertDialogFooter>
-                            <Button ref={cancelRef} onClick={onClose}>
-                                No
-                            </Button>
-                            <Button colorScheme='red' ml={3} onClick={logoutUser}>
-                                Yes
-                            </Button>
-                        </AlertDialogFooter>
-                    </AlertDialogContent>
-                </AlertDialog>
+                    <Flex alignItems='center'>
+                        <Avatar size='md' border='2px solid gray'>
+                        </Avatar>
+                        <Text ml={2}>{user}</Text>
+                    </Flex>
+                    <Menu>
+                        <MenuButton
+                            as={IconButton}
+                            aria-label='Options'
+                            icon={<HiDotsVertical />}
+                            variant='ghost'
+                            ml='6vh'
+                        />
+                        <MenuList>
+                            <MenuItem onClick={onOpen}>
+                                Logout
+                            </MenuItem>
+
+                            <MenuItem>
+                                Help
+                            </MenuItem>
+                        </MenuList>
+                    </Menu>
+                    <AlertDialog
+                        motionPreset='slideInBottom'
+                        leastDestructiveRef={cancelRef}
+                        onClose={onClose}
+                        isOpen={isOpen}
+                        isCentered
+                    >
+                        <AlertDialogOverlay />
+
+                        <AlertDialogContent>
+                            <AlertDialogHeader>Logout</AlertDialogHeader>
+                            <AlertDialogCloseButton />
+                            <AlertDialogBody>
+                                Are you sure you want to Logout?
+                            </AlertDialogBody>
+                            <AlertDialogFooter>
+                                <Button ref={cancelRef} onClick={onClose}>
+                                    No
+                                </Button>
+                                <Button colorScheme='red' ml={3} onClick={logoutUser}>
+                                    Yes
+                                </Button>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
+                </Flex>
+
             </Flex>
 
         </Flex >
