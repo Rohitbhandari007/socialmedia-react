@@ -2,6 +2,10 @@ import { React, useState } from 'react'
 import { Flex, Avatar, Button, Text, useColorModeValue } from '@chakra-ui/react'
 import useAxios from '../utils/useAxios'
 import { Link } from 'react-router-dom'
+import FollowButton from './smallcomponents/FollowButton'
+
+
+
 
 function SuggItems({ username, ifollow, uid, profile_image }) {
 
@@ -68,6 +72,8 @@ function SuggItems({ username, ifollow, uid, profile_image }) {
                 <Text size='sm' fontWeight="500">Unfollow</Text> :
                 <Text size='sm' fontWeight='500'>Follow</Text>}
             </Button>
+
+
         </Flex >
     )
 }

@@ -1,12 +1,10 @@
 import { React, useState, useEffect } from 'react'
 import Nav from '../components/Nav'
-import Profile from '../components/Profile'
-import { Grid, GridItem, Button, Flex, Text, Avatar, Divider } from '@chakra-ui/react'
+import { Grid, GridItem, Button, Flex, Text, Avatar, Divider, Image, useColorModeValue } from '@chakra-ui/react'
 import { withRouter } from 'react-router-dom'
 import useAxios from '../utils/useAxios'
-import PublicProfile from '../components/PublicProfile'
 import PostItem from '../components/PostItem'
-
+import FollowButton from '../components/smallcomponents/FollowButton'
 
 
 function PublicProfilePage(props) {
@@ -14,12 +12,10 @@ function PublicProfilePage(props) {
 
     let [user, setUser] = useState([])
     let [userposts, setuserPosts] = useState([])
+    const bg = useColorModeValue('#f0f0f5', '#1B222E')
 
     let username = props.match.params.username
     let uid = props.match.params.id
-
-    console.log(uid)
-
 
 
     let api = useAxios()
@@ -43,9 +39,6 @@ function PublicProfilePage(props) {
         } catch (error) {
             console.log(error)
         }
-
-
-
     }
 
     let getUserPosts = async () => {
@@ -69,19 +62,36 @@ function PublicProfilePage(props) {
             </GridItem>
             <GridItem>
                 <Flex flexDir='row' justifyContent='space-between' w='80vh' mt={2}>
-                    <Flex flexDir='column' w="50vh" alignItems='start'>
-                        <Avatar size='lg' src={'http://127.0.0.1:8000' + user.profile_image}></Avatar>
-                        <Text fontSize='lg'>{user.username}</Text>
-                        <Text fontSize='sm'>Nice quote is not a bio</Text>
+                    <Flex flexDir='column' boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)" bg={bg}
+                        p={2}
+                    >
+                        <Image
+                            src={'http://127.0.0.1:8000' + user.cover_image}
+                            borderRadius='sm'
+                            objectFit='cover'
+                            objectPosition='center center'
+                            h={{ sm: '20vh', md: '40vh' }} w={{ sm: '50vh', md: '80vh' }}
+                        />
+                        <Flex flexDir='column' w="50vh" alignItems='start' zIndex={1} mt={-10}>
+                            <Avatar size='lg' src={'http://127.0.0.1:8000' + user.profile_image}></Avatar>
+                            <Text fontSize='lg'>{user.username}</Text>
+                            <Text fontSize='sm'>Nice quote is not a bio</Text>
 
-                        <Flex flexDir='row' justifyContent='space-between' w='30vh'>
-                            <Text fontSize='sm'>{user.followers} Followers</Text>
-                            <Text fontSize='sm'>{user.following} Following</Text>
+                            <Flex flexDir='row' justifyContent='space-between' w='30vh'>
+                                <Text fontSize='sm'>{user.followers} Followers</Text>
+                                <Text fontSize='sm'>{user.following} Following</Text>
+
+                            </Flex>
 
                         </Flex>
+                        {/* <FollowButton
+                            kaam={followUnfollow}
+                            folo={follow}
+                        >
+                        </FollowButton> */}
+
 
                     </Flex>
-                    <Button>Edit Profile</Button>
 
                 </Flex>
                 <Divider></Divider>

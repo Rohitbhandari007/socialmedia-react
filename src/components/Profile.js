@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react'
-import { Flex, Avatar, Text, Menu, MenuButton, Button, Divider } from '@chakra-ui/react'
+import { Flex, Avatar, Text, Box, Image, Button, Divider, useColorModeValue } from '@chakra-ui/react'
 import useAxios from '../utils/useAxios'
 import PostItem from './PostItem'
 
@@ -9,6 +9,8 @@ function Profile() {
 
     let [userinfo, setUserinfo] = useState([])
     let [userposts, setuserPosts] = useState([])
+
+    const bg = useColorModeValue('#f0f0f5', '#1B222E')
 
 
     let api = useAxios()
@@ -28,6 +30,7 @@ function Profile() {
             setUserinfo(response.data)
         } catch (error) {
             console.log(error)
+
         }
     }
     let getUserPosts = async () => {
@@ -43,22 +46,35 @@ function Profile() {
     return (
         <>
             <Flex flexDir='row' justifyContent='space-between' w='80vh' mt={2}>
-                <Flex flexDir='column' w="50vh" alignItems='start'>
-                    <Avatar size='lg' src={'http://127.0.0.1:8000' + userinfo.profile_image}></Avatar>
-                    <Text fontSize='lg'>{userinfo.username}</Text>
-                    <Text fontSize='sm'>Nice quote is not a bio</Text>
+                <Flex flexDir='column' boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)" bg={bg}
+                    p={2}
+                >
+                    <Image
+                        src={'http://127.0.0.1:8000' + userinfo.cover_image}
+                        borderRadius='sm'
+                        objectFit='cover'
+                        objectPosition='center center'
+                        h={{ sm: '20vh', md: '40vh' }} w={{ sm: '50vh', md: '80vh' }}
+                    />
+                    <Flex flexDir='column' w="50vh" alignItems='start' zIndex={1} mt={-10}>
+                        <Avatar size='lg' src={'http://127.0.0.1:8000' + userinfo.profile_image}></Avatar>
+                        <Text fontSize='lg'>{userinfo.username}</Text>
+                        <Text fontSize='sm'>Nice quote is not a bio</Text>
 
-                    <Flex flexDir='row' justifyContent='space-between' w='30vh'>
-                        <Text fontSize='sm'>{userinfo.followers} Followers</Text>
-                        <Text fontSize='sm'>{userinfo.following} Following</Text>
+                        <Flex flexDir='row' justifyContent='space-between' w='30vh'>
+                            <Text fontSize='sm'>{userinfo.followers} Followers</Text>
+                            <Text fontSize='sm'>{userinfo.following} Following</Text>
+
+                        </Flex>
 
                     </Flex>
+                    <Button><Text fontSize='sm'>Edit Profile</Text></Button>
+
 
                 </Flex>
-                <Button>Edit Profile</Button>
 
-            </Flex>
-            <Divider></Divider>
+
+            </Flex >
             <Flex flexDir='column'
                 width={{
                     sm: '50vh',

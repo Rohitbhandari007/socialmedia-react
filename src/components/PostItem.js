@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useContext } from 'react'
+import { React, useState, useRef, useContext } from 'react'
 import {
     Box, Flex, Text, Image, Avatar, IconButton, Icon, Divider, useColorModeValue, Menu, MenuButton, MenuItem, MenuList, Tooltip, Modal,
     ModalOverlay,
@@ -7,11 +7,21 @@ import {
     ModalCloseButton,
     Button,
     useDisclosure,
+    ModalHeader,
+    ModalFooter,
+    Input,
+    AlertDialog,
+    AlertDialogBody,
+    AlertDialogOverlay,
+    AlertDialogHeader,
+    AlertDialogCloseButton,
+    AlertDialogContent,
+    AlertDialogFooter,
 } from '@chakra-ui/react'
 import { FiMenu, FiHeart, FiMessageCircle, FiSave, FiShare } from 'react-icons/fi'
 import useAxios from '../utils/useAxios'
-import AuthContext from '../context/AuthContext'
 import { Link } from 'react-router-dom'
+
 
 
 function PostItem({ title, details, postImage, created, username, likes, postId, likedBy, iliked, uid, profile_image }) {
@@ -22,21 +32,27 @@ function PostItem({ title, details, postImage, created, username, likes, postId,
     const titletextColor = useColorModeValue('#23262e', 'whiteAlpha.800')
     const detailtextColor = useColorModeValue('#2f3249', 'whiteAlpha.700')
 
+    const cancelRef = useRef()
 
+    let upid = 'props.match.params.id'
+
+
+    //chakra ui button functions
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen: isDeleteOpen, onOpen: onDeleteOpen, onClose: onDeleteClose } = useDisclosure()
+    const { isOpen: isLikeOpen, onOpen: onLikeOpen, onClose: onLikeClose } = useDisclosure()
+
+
+    //api call button funcions
     let [likebtn, setlikebtn] = useState(iliked)
     let [count, setCount] = useState(likes)
-
 
     let api = useAxios()
     let url = '/like-unlike/'
     const pk = {
         pk: postId
     }
-
-
     let likePostNew = async () => {
-
         try {
             let response = await api.post(url, pk)
             setCount(response.data.count)
@@ -44,9 +60,36 @@ function PostItem({ title, details, postImage, created, username, likes, postId,
         } catch (error) {
             console.log(error)
         }
-
     }
 
+    let editPost = async (e) => {
+        let urlnew = '/posts/' + postId + '/'
+        e.preventDefault();
+
+        let form_data = new FormData();
+        form_data.append('image', e.target.image.files[0]);
+        form_data.append('title', e.target.title.value);
+        form_data.append('details', e.target.details.value);
+
+        try {
+            let response = await api.put(urlnew, form_data)
+            console.log(response)
+            console.log(form_data)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    let deletePost = async () => {
+        let urlnew = '/posts/' + postId + '/'
+        try {
+            let response = await api.delete(urlnew)
+            console.log(response)
+            window.location.reload();
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <Box
@@ -88,11 +131,66 @@ function PostItem({ title, details, postImage, created, username, likes, postId,
                         variant='ghost'
                     />
                     <MenuList>
-                        <MenuItem>
-                            Report Post
+                        <MenuItem onClick={onDeleteOpen}>
+                            Delete Post
+
+                            <AlertDialog
+                                motionPreset='slideInBottom'
+                                leastDestructiveRef={cancelRef}
+                                onClose={onDeleteClose}
+                                isOpen={isDeleteOpen}
+                                isCentered
+                            >
+                                <AlertDialogOverlay />
+
+                                <AlertDialogContent>
+                                    <AlertDialogHeader>Delete</AlertDialogHeader>
+                                    <AlertDialogCloseButton />
+                                    <AlertDialogBody>
+                                        Are you sure you want to Delete this post?
+                                    </AlertDialogBody>
+                                    <AlertDialogFooter>
+                                        <Button ref={cancelRef} onClick={onDeleteClose}>
+                                            No
+                                        </Button>
+                                        <Button colorScheme='red' ml={3} onClick={deletePost}>
+                                            Yes
+                                        </Button>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
                         </MenuItem>
-                        <MenuItem>
+                        <MenuItem onClick={onOpen}>
                             Edit Post
+                            <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+                                <ModalOverlay />
+                                <form onSubmit={editPost}>
+                                    <ModalContent>
+                                        <ModalHeader >Edit Post</ModalHeader>
+                                        <ModalCloseButton />
+                                        <ModalBody>
+                                            <Flex
+                                                flexDir='column'
+                                                justifyContent='space-between'
+                                            >
+                                                <Input id="title" placeholder='Title' mb={2} name='title' isRequired></Input>
+                                                <Input id="details" placeholder='Details (Optional)' mb={2} name='details'></Input>
+                                                <input id="image" name='image' type='file' accept="image/*"></input>
+                                            </Flex>
+
+
+                                        </ModalBody>
+
+                                        <ModalFooter>
+                                            <Button colorScheme='red' mr={3} onClick={onClose}>
+                                                Close
+                                            </Button>
+                                            <Button colorScheme='blue' type='submit'>Post</Button>
+
+                                        </ModalFooter>
+                                    </ModalContent>
+                                </form>
+                            </Modal>
                         </MenuItem>
                     </MenuList>
                 </Menu>
@@ -140,11 +238,11 @@ function PostItem({ title, details, postImage, created, username, likes, postId,
                         >
                         </IconButton>
                         <Tooltip >
-                            <Text ml={1} fontSize='xs' cursor='pointer' onClick={onOpen}>
+                            <Text ml={1} fontSize='xs' cursor='pointer' onClick={onLikeOpen}>
                                 {count} Likes
                             </Text>
                         </Tooltip>
-                        <Modal isOpen={isOpen} onClose={onClose} size='xs'>
+                        <Modal isOpen={isLikeOpen} onClose={onLikeClose} size='xs'>
                             <ModalOverlay />
                             <ModalContent>
                                 <ModalCloseButton alignSelf='center' />

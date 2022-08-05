@@ -1,5 +1,4 @@
 import { React, useContext, useState } from 'react'
-
 import {
     Button, Modal, ModalBody, ModalContent, ModalHeader, Text, ModalFooter, ModalOverlay, useDisclosure, ModalCloseButton, Input,
     Flex, Link
@@ -16,29 +15,18 @@ function CreatePost() {
     let api = useAxios()
     let url = '/posts/'
 
-
-
-
     let postCreate = async (e) => {
-        e.preventDefault();
-
-        let body = {
-            title: e.target.title.value,
-            details: e.target.details.value,
-            image: e.target.image.files[0]
-        }
-
-        console.log(body)
-
+        let form_data = new FormData();
+        form_data.append('image', e.target.image.files[0]);
+        form_data.append('title', e.target.title.value);
+        form_data.append('details', e.target.details.value);
         try {
-            let response = await api.post(url, body)
+            let response = await api.post(url, form_data)
             console.log(response.data)
-
         } catch (error) {
             // console.log(error)
             console.log(error.response.data)
         }
-
     }
 
 
