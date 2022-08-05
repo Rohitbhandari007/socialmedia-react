@@ -117,10 +117,11 @@ function PublicProfilePage(props) {
                             created={note.date_created}
                             username={note.author.username}
                             likes={note.like_count}
+                            profile_image={note.author.profile_image}
                             likedBy={note.liked}
                             iliked={note.iliked}
                             // likeState={like} gives true or false value
-
+                            uid={note.author.id}
                             postImage={note.image}
                         ></PostItem>
                     ))}

@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from 'react'
 import jwt_decode from "jwt-decode";
 import { useHistory } from 'react-router-dom'
 
+
 const AuthContext = createContext()
 
 export default AuthContext;
@@ -14,8 +15,6 @@ export const AuthProvider = ({ children }) => {
     let [error, setError] = useState(null)
     let [loginErr, setLoginErr] = useState(null)
     let [success, setSuccess] = useState(null)
-    // let [likeCount, setLikeCount] = useState()
-    // let [like, setLike] = useState()
 
 
     const history = useHistory()
@@ -44,42 +43,6 @@ export const AuthProvider = ({ children }) => {
 
         }
     }
-
-    // let likePost = async (e) => {
-    //     e.preventDefault()
-    //     const postid = e.target.likebtn.value
-    //     const pk = {
-    //         pk: postid
-    //     }
-
-    //     const Auth = 'Bearer ' + authTokens.access
-
-    //     let response = await fetch('http://127.0.0.1:8000/like-unlike/', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-type': 'application/json',
-    //             'Authorization': Auth,
-    //         },
-    //         body: JSON.stringify(pk)
-    //     })
-    //         .then((res) => res.json())
-    //         .then((messages) => {
-
-    //             const initialLike = (messages.liked)
-    //             const likeLen = (messages.count)
-    //             setLike(initialLike)
-    //             setLikeCount(likeLen)
-
-
-    //             //  console.log('Current like :' + initialLike + ', count: ' + likeLen)
-    //             //  console.log('Prev like :' + like + ', count: ' + likeCount)
-
-
-    //         });
-    //     //let data = response.json()
-    //     // console.log(data)
-    // }
 
     let followUnfollow = async (e) => {
         e.preventDefault()
@@ -114,10 +77,6 @@ export const AuthProvider = ({ children }) => {
 
         e.preventDefault()
         const Auth = 'Bearer ' + authTokens.access
-        // var data = new FormData();
-        // var imagedata = document.querySelector('input[type="file"]').files[0];
-        // data.append("data", imagedata);
-
         let title = e.target.title.value
         let details = e.target.details.value
         let image = e.target.image.files[0]

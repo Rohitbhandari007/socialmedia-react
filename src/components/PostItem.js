@@ -17,10 +17,12 @@ import {
     AlertDialogCloseButton,
     AlertDialogContent,
     AlertDialogFooter,
+    VisuallyHidden,
 } from '@chakra-ui/react'
 import { FiMenu, FiHeart, FiMessageCircle, FiSave, FiShare } from 'react-icons/fi'
 import useAxios from '../utils/useAxios'
 import { Link } from 'react-router-dom'
+import AuthContext from '../context/AuthContext'
 
 
 
@@ -34,7 +36,7 @@ function PostItem({ title, details, postImage, created, username, likes, postId,
 
     const cancelRef = useRef()
 
-    let upid = 'props.match.params.id'
+    let { user } = useContext(AuthContext)
 
 
     //chakra ui button functions
@@ -123,77 +125,85 @@ function PostItem({ title, details, postImage, created, username, likes, postId,
                     </Link>
                 </Flex>
 
-                <Menu>
-                    <MenuButton
-                        as={IconButton}
-                        aria-label='Options'
-                        icon={<FiMenu />}
-                        variant='ghost'
-                    />
-                    <MenuList>
-                        <MenuItem onClick={onDeleteOpen}>
-                            Delete Post
-
-                            <AlertDialog
-                                motionPreset='slideInBottom'
-                                leastDestructiveRef={cancelRef}
-                                onClose={onDeleteClose}
-                                isOpen={isDeleteOpen}
-                                isCentered
-                            >
-                                <AlertDialogOverlay />
-
-                                <AlertDialogContent>
-                                    <AlertDialogHeader>Delete</AlertDialogHeader>
-                                    <AlertDialogCloseButton />
-                                    <AlertDialogBody>
-                                        Are you sure you want to Delete this post?
-                                    </AlertDialogBody>
-                                    <AlertDialogFooter>
-                                        <Button ref={cancelRef} onClick={onDeleteClose}>
-                                            No
-                                        </Button>
-                                        <Button colorScheme='red' ml={3} onClick={deletePost}>
-                                            Yes
-                                        </Button>
-                                    </AlertDialogFooter>
-                                </AlertDialogContent>
-                            </AlertDialog>
-                        </MenuItem>
-                        <MenuItem onClick={onOpen}>
-                            Edit Post
-                            <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
-                                <ModalOverlay />
-                                <form onSubmit={editPost}>
-                                    <ModalContent>
-                                        <ModalHeader >Edit Post</ModalHeader>
-                                        <ModalCloseButton />
-                                        <ModalBody>
-                                            <Flex
-                                                flexDir='column'
-                                                justifyContent='space-between'
-                                            >
-                                                <Input id="title" placeholder='Title' mb={2} name='title' isRequired></Input>
-                                                <Input id="details" placeholder='Details (Optional)' mb={2} name='details'></Input>
-                                                <input id="image" name='image' type='file' accept="image/*"></input>
-                                            </Flex>
+                {user.user_id === uid ?
 
 
-                                        </ModalBody>
+                    <Menu >
+                        <MenuButton
+                            as={IconButton}
+                            aria-label='Options'
+                            icon={<FiMenu />}
+                            variant='ghost'
+                        />
+                        <MenuList>
+                            <MenuItem onClick={onDeleteOpen}>
+                                Delete Post
 
-                                        <ModalFooter>
-                                            <Button colorScheme='red' mr={3} onClick={onClose}>
-                                                Close
+                                <AlertDialog
+                                    motionPreset='slideInBottom'
+                                    leastDestructiveRef={cancelRef}
+                                    onClose={onDeleteClose}
+                                    isOpen={isDeleteOpen}
+                                    isCentered
+                                >
+                                    <AlertDialogOverlay />
+
+                                    <AlertDialogContent>
+                                        <AlertDialogHeader>Delete</AlertDialogHeader>
+                                        <AlertDialogCloseButton />
+                                        <AlertDialogBody>
+                                            Are you sure you want to Delete this post?
+                                        </AlertDialogBody>
+                                        <AlertDialogFooter>
+                                            <Button ref={cancelRef} onClick={onDeleteClose}>
+                                                No
                                             </Button>
-                                            <Button colorScheme='blue' type='submit'>Post</Button>
+                                            <Button colorScheme='red' ml={3} onClick={deletePost}>
+                                                Yes
+                                            </Button>
+                                        </AlertDialogFooter>
+                                    </AlertDialogContent>
+                                </AlertDialog>
+                            </MenuItem>
+                            <MenuItem onClick={onOpen}>
+                                Edit Post
+                                <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+                                    <ModalOverlay />
+                                    <form onSubmit={editPost}>
+                                        <ModalContent>
+                                            <ModalHeader >Edit Post</ModalHeader>
+                                            <ModalCloseButton />
+                                            <ModalBody>
+                                                <Flex
+                                                    flexDir='column'
+                                                    justifyContent='space-between'
+                                                >
+                                                    <Input id="title" placeholder='Title' mb={2} name='title' isRequired></Input>
+                                                    <Input id="details" placeholder='Details (Optional)' mb={2} name='details'></Input>
+                                                    <input id="image" name='image' type='file' accept="image/*"></input>
+                                                </Flex>
 
-                                        </ModalFooter>
-                                    </ModalContent>
-                                </form>
-                            </Modal>
-                        </MenuItem>
-                    </MenuList>
-                </Menu>
+
+                                            </ModalBody>
+
+                                            <ModalFooter>
+                                                <Button colorScheme='red' mr={3} onClick={onClose}>
+                                                    Close
+                                                </Button>
+                                                <Button colorScheme='blue' type='submit'>Post</Button>
+
+                                            </ModalFooter>
+                                        </ModalContent>
+                                    </form>
+                                </Modal>
+                            </MenuItem>
+                        </MenuList>
+                    </Menu>
+                    :
+                    <VisuallyHidden>edit</VisuallyHidden>
+
+                }
+
             </Flex>
 
             <Flex
