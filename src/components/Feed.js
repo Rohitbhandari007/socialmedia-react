@@ -55,7 +55,13 @@ function Feed() {
                     ></PostItem>
                 ))}</>
                 :
-                <Spinner size='xl' alignSelf='center' speed='1s'
+                <Spinner
+                    size='xl'
+                    alignSelf='center'
+                    speed='1s'
+                    thickness='4px'
+                    emptyColor='gray.200'
+                    color='blue.500'
                     mt={{ sm: '100px', md: '200px' }} />
             }
 
