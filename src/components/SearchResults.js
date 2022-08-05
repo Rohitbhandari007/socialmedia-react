@@ -2,7 +2,7 @@ import { Avatar, Flex, Text, Divider } from '@chakra-ui/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function SearchResults({ username, uid }) {
+function SearchResults({ username, uid, profile_image }) {
 
 
     return (
@@ -12,7 +12,7 @@ function SearchResults({ username, uid }) {
                 alignItems='center'
                 height='8vh'
             >
-                <Avatar size='sm'></Avatar>
+                <Avatar size='sm' src={profile_image}></Avatar>
                 <Link to={'/user/' + username + "/" + uid}>
                     <Text ml={1}>{username}</Text>
                 </Link>

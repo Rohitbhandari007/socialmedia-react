@@ -10,6 +10,8 @@ function Suggestions() {
 
     let [users, setUsers] = useState([])
     let [query, setQuery] = useState([])
+    let [searchValue, setSearchValue] = useState(null)
+
 
     const bg = useColorModeValue('none', 'none')
 
@@ -38,6 +40,7 @@ function Suggestions() {
 
         let searchUrl = '/users/userlist/?search='
         let searchvalue = document.getElementById('search').value
+        setSearchValue(searchvalue)
         let newUrl = searchUrl + searchvalue
 
         try {
@@ -84,14 +87,29 @@ function Suggestions() {
                             <PopoverCloseButton />
                             <PopoverHeader>Search Results</PopoverHeader>
                             <PopoverBody>
-                                {query.map(item => (
-                                    <SearchResults
-                                        key={item.id}
-                                        uid={item.id}
-                                        username={item.username}
-                                    >
-                                    </SearchResults>
-                                ))}</PopoverBody>
+
+                                {query.length === 0
+                                    ?
+                                    <>No Results found for "{searchValue}"</>
+                                    :
+                                    <>
+                                        {query.map(item => (
+                                            <SearchResults
+                                                key={item.id}
+                                                uid={item.id}
+                                                username={item.username}
+                                                profile_image={item.profile_image}
+
+                                                searchValue={searchValue}
+                                            >
+                                            </SearchResults>
+                                        ))}
+                                    </>
+
+                                }
+
+
+                            </PopoverBody>
                         </PopoverContent>
                     </Popover>
 

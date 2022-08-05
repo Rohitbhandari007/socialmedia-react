@@ -23,7 +23,6 @@ function Feed() {
         if (response.status === 200) {
             setposts(response.data)
             setLoading(true)
-            console.log(response.data)
 
         }
     }
