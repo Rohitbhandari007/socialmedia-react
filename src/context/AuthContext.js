@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
     let [loginErr, setLoginErr] = useState(null)
     let [success, setSuccess] = useState(null)
 
+    const mainurl = 'http://127.0.0.1:8000'
 
     const history = useHistory()
 

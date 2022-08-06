@@ -11,13 +11,18 @@ const HomePage = () => {
     return (
         <Grid templateColumns='repeat(5, 1fr)' gap={2}>
             <GridItem colSpan={2}>
-                <Nav />
+                <Nav
+
+                >
+
+                </Nav>
             </GridItem>
             <GridItem>
                 <Feed />
             </GridItem>
             <GridItem>
-                <Suggestions />
+                <Suggestions
+                />
             </GridItem>
         </Grid>
     )

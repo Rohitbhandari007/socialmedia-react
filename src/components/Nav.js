@@ -1,11 +1,12 @@
 import { React, useContext, useRef, useState, useEffect } from 'react'
-import { FiPower, FiHome, FiUser, FiUmbrella, FiSettings, FiBookmark, FiMessageCircle } from 'react-icons/fi'
+import { FiPower, FiHome, FiUser, FiUmbrella, FiSettings, FiBookmark, FiMessageCircle, FiSearch } from 'react-icons/fi'
 import { HiDotsVertical } from 'react-icons/hi'
 import NavItem from './NavItem'
 import { ColorModeSwitcher } from '../ColorModeSwitcher'
 import AuthContext from '../context/AuthContext'
 import useAxios from '../utils/useAxios'
 import CreatePost from './CreatePost'
+import { Link } from 'react-router-dom'
 
 
 //chakra ui imports
@@ -22,6 +23,8 @@ function Nav() {
 
 
     const bg = useColorModeValue('#f0f1f5', 'none')
+    const bgmob = useColorModeValue('#f0f1f5', '#262a33')
+
     const bgBottom = useColorModeValue('#f0f0f5', '#1B222E')
 
     let { logoutUser } = useContext(AuthContext)
@@ -50,116 +53,165 @@ function Nav() {
 
 
 
+
     return (
-        <Flex
-            pos="fixed"
-            height="100vh"
-            flexDir="column"
-            boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
-            w="40vh"
-            justifyContent="space-between"
-            bg={bg}
-            p={4}
-            left={0}
-        >
+        <Flex>
 
             <Flex
-                p="5%"
-                flexDir="column"
-                w="100%"
-                as="nav"
-                alignItems="start"
+                bottom={0}
+                pos='fixed'
+                bg={bgmob}
+                w='100vw'
+                display={['flex', 'none']}
+                zIndex={1}
+
             >
+                <Flex w="100%" h="100%" justifyContent='space-around' alignItems='center'>
 
-                <Flex
-                    justifyContent='space-between'
-                    w="100%"
-                    alignItems='center'
-                >
-                    <ColorModeSwitcher
-                        background="none"
-                    >
-                    </ColorModeSwitcher>
-
-                </Flex>
-                <NavItem icon={FiHome} title={"Home"} linkTo="/"></NavItem>
-                <NavItem icon={FiUser} title={"Profile"} linkTo='/profile'></NavItem>
-                <NavItem icon={FiUmbrella} title={"Notifications"} linkTo='/' ></NavItem>
-                <NavItem icon={FiMessageCircle} title={"Messages"} linkTo='/'></NavItem>
-                <NavItem icon={FiBookmark} title={"Saved Posts"} linkTo='/' ></NavItem>
-                <NavItem icon={FiSettings} title={"Settings"} linkTo='/'></NavItem>
-
-
-
-            </Flex>
-            <Flex
-                flexDir='column'
-            >
-                <CreatePost></CreatePost>
-                <Flex
-                    flexDir='row'
-                    alignItems='center'
-                    p={2}
-                    boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
-                    justifyContent='space-between'
-                    bg={bgBottom}
-                >
-
-                    <Flex alignItems='center'>
-                        <Avatar size='md' border='2px solid gray'
-                            src={'http://127.0.0.1:8000' + user.profile_image}
-                        >
-                        </Avatar>
-                        <Text ml={2}>{user.username}</Text>
-                    </Flex>
+                    <Link to='/'>
+                        <IconButton icon={<FiHome />} variant='ghost'></IconButton>
+                    </Link>
+                    <IconButton icon={<FiUmbrella />} variant='ghost'></IconButton>
+                    <IconButton icon={<FiMessageCircle />} variant='ghost'></IconButton>
+                    <IconButton icon={<FiSearch />} variant='ghost'></IconButton>
                     <Menu>
                         <MenuButton
                             as={IconButton}
                             aria-label='Options'
-                            icon={<HiDotsVertical />}
+                            icon={<Avatar size="xs" src={'http://127.0.0.1:8000' + user.profile_image} />}
                             variant='ghost'
                             ml='6vh'
                         />
                         <MenuList>
-                            <MenuItem onClick={onOpen}>
+                            <MenuItem onClick={logoutUser}>
                                 Logout
                             </MenuItem>
-
-                            <MenuItem>
-                                Help
-                            </MenuItem>
+                            <Link to='/profile'>
+                                <MenuItem>
+                                    My Profile
+                                </MenuItem>
+                            </Link>
                         </MenuList>
                     </Menu>
-                    <AlertDialog
-                        motionPreset='slideInBottom'
-                        leastDestructiveRef={cancelRef}
-                        onClose={onClose}
-                        isOpen={isOpen}
-                        isCentered
-                    >
-                        <AlertDialogOverlay />
 
-                        <AlertDialogContent>
-                            <AlertDialogHeader>Logout</AlertDialogHeader>
-                            <AlertDialogCloseButton />
-                            <AlertDialogBody>
-                                Are you sure you want to Logout?
-                            </AlertDialogBody>
-                            <AlertDialogFooter>
-                                <Button ref={cancelRef} onClick={onClose}>
-                                    No
-                                </Button>
-                                <Button colorScheme='red' ml={3} onClick={logoutUser}>
-                                    Yes
-                                </Button>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                    </AlertDialog>
                 </Flex>
 
             </Flex>
 
-        </Flex >
+
+            <Flex
+                pos='fixed'
+                height="100vh"
+                flexDir="column"
+                boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
+                w='40vh'
+                justifyContent="space-between"
+                bg={bg}
+                p={4}
+                left={0}
+                display={['none', 'flex']}
+            >
+
+                <Flex
+                    p="5%"
+                    flexDir="column"
+                    w="100%"
+                    as="nav"
+                    alignItems="start"
+
+                >
+
+                    <Flex
+                        justifyContent='space-between'
+                        w="100%"
+                        alignItems='center'
+
+                    >
+                        <ColorModeSwitcher
+                            background="none"
+                        >
+                        </ColorModeSwitcher>
+
+                    </Flex>
+                    <NavItem icon={FiHome} title={"Home"} linkTo="/"></NavItem>
+                    <NavItem icon={FiUser} title={"Profile"} linkTo='/profile'></NavItem>
+                    <NavItem icon={FiUmbrella} title={"Notifications"} linkTo='/' ></NavItem>
+                    <NavItem icon={FiMessageCircle} title={"Messages"} linkTo='/'></NavItem>
+                    <NavItem icon={FiBookmark} title={"Saved Posts"} linkTo='/' ></NavItem>
+                    <NavItem icon={FiSettings} title={"Settings"} linkTo='/'></NavItem>
+
+
+
+                </Flex>
+                <Flex
+                    flexDir='column'
+                >
+                    <CreatePost></CreatePost>
+                    <Flex
+                        flexDir='row'
+                        alignItems='center'
+                        p={2}
+                        boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
+                        justifyContent='space-between'
+                        bg={bgBottom}
+                    >
+
+                        <Flex alignItems='center'>
+                            <Avatar size='md' border='2px solid gray'
+                                src={'http://127.0.0.1:8000' + user.profile_image}
+                            >
+                            </Avatar>
+                            <Text ml={2}>{user.username}</Text>
+                        </Flex>
+                        <Menu>
+                            <MenuButton
+                                as={IconButton}
+                                aria-label='Options'
+                                icon={<HiDotsVertical />}
+                                variant='ghost'
+                                ml='6vh'
+                            />
+                            <MenuList>
+                                <MenuItem onClick={onOpen}>
+                                    Logout
+                                </MenuItem>
+
+                                <MenuItem>
+                                    Help
+                                </MenuItem>
+                            </MenuList>
+                        </Menu>
+                        <AlertDialog
+                            motionPreset='slideInBottom'
+                            leastDestructiveRef={cancelRef}
+                            onClose={onClose}
+                            isOpen={isOpen}
+                            isCentered
+                        >
+                            <AlertDialogOverlay />
+
+                            <AlertDialogContent>
+                                <AlertDialogHeader>Logout</AlertDialogHeader>
+                                <AlertDialogCloseButton />
+                                <AlertDialogBody>
+                                    Are you sure you want to Logout?
+                                </AlertDialogBody>
+                                <AlertDialogFooter>
+                                    <Button ref={cancelRef} onClick={onClose}>
+                                        No
+                                    </Button>
+                                    <Button colorScheme='red' ml={3} onClick={logoutUser}>
+                                        Yes
+                                    </Button>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
+                    </Flex>
+
+                </Flex>
+
+            </Flex >
+        </Flex>
     )
 }
 

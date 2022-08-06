@@ -30,10 +30,7 @@ function Feed() {
     return (
 
         <Flex flexDir='column'
-            width={{
-                sm: '50vh',
-                md: '80vh'
-            }}
+            width={['40vh', '80vh']}
         >
             {loading ?
                 <>  {posts.map(note => (

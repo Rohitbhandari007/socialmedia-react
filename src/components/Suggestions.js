@@ -11,7 +11,6 @@ function Suggestions() {
     let [users, setUsers] = useState([])
     let [query, setQuery] = useState([])
     let [searchValue, setSearchValue] = useState(null)
-    let [handleEnter, setHandleEnter] = useState(null)
 
 
     const bg = useColorModeValue('none', 'none')
@@ -70,7 +69,8 @@ function Suggestions() {
             height='100vh'
             width='50vh'
             float='right'
-
+            pos={{ md: "fixed" }}
+            display={['none', 'flex']}
 
         >
             <Flex>

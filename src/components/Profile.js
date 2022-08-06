@@ -49,9 +49,10 @@ function Profile() {
     return (
         <>
             {loading ? <div>
-                <Flex flexDir='row' justifyContent='space-between' w='80vh' mt={2}>
+                <Flex flexDir='row' justifyContent='space-between' mt={2} width={['40vh', '80vh']}
+                >
 
-                    <Flex flexDir='column' boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)" bg={bg}
+                    <Flex flexDir='column' boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)" bg={bg} width={['40vh', '80vh']}
                         p={2}
                     >
                         <Image
@@ -59,7 +60,7 @@ function Profile() {
                             borderRadius='sm'
                             objectFit='cover'
                             objectPosition='center center'
-                            h={{ sm: '20vh', md: '30vh' }} w={{ sm: '50vh', md: '80vh' }}
+                            h={{ sm: '20vh', md: '30vh' }} w={['40vh', '80vh']}
                         />
                         <Flex flexDir='column' w="50vh" alignItems='start' zIndex={1} mt={-10}>
                             <Avatar size='lg' src={'http://127.0.0.1:8000' + userinfo.profile_image}></Avatar>
@@ -84,10 +85,7 @@ function Profile() {
 
                 </Flex >
                 <Flex flexDir='column'
-                    width={{
-                        sm: '50vh',
-                        md: '80vh'
-                    }}
+                    width={['40vh', '80vh']}
                 >
                     {userposts.map(note => (
 
