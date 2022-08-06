@@ -75,7 +75,7 @@ function PublicProfilePage(props) {
                                 borderRadius='sm'
                                 objectFit='cover'
                                 objectPosition='center center'
-                                h={{ sm: '20vh', md: '40vh' }} w={{ sm: '50vh', md: '80vh' }}
+                                h={{ sm: '20vh', md: '30vh' }} w={{ sm: '50vh', md: '80vh' }}
                             />
                             <Flex flexDir='column' w="50vh" alignItems='start' zIndex={1} mt={-10}>
                                 <Avatar size='lg' src={'http://127.0.0.1:8000' + user.profile_image}></Avatar>

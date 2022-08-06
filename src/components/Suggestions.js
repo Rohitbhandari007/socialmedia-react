@@ -11,6 +11,7 @@ function Suggestions() {
     let [users, setUsers] = useState([])
     let [query, setQuery] = useState([])
     let [searchValue, setSearchValue] = useState(null)
+    let [handleEnter, setHandleEnter] = useState(null)
 
 
     const bg = useColorModeValue('none', 'none')
@@ -36,10 +37,16 @@ function Suggestions() {
     }
 
 
-    let searchUsers = async () => {
+
+    let searchUsers = async (event) => {
 
         let searchUrl = '/users/userlist/?search='
         let searchvalue = document.getElementById('search').value
+
+
+
+
+
         setSearchValue(searchvalue)
         let newUrl = searchUrl + searchvalue
 
@@ -68,7 +75,7 @@ function Suggestions() {
         >
             <Flex>
                 <InputGroup>
-                    <Input variant='filled' placeholder='Search.. ' id="search" />
+                    <Input variant='filled' placeholder='Search.. ' id="search" name='searchfield' />
                 </InputGroup>
                 <Flex
                 >
@@ -83,6 +90,7 @@ function Suggestions() {
                                 onClick={searchUsers}
                             />
                         </PopoverTrigger>
+
                         <PopoverContent>
                             <PopoverCloseButton />
                             <PopoverHeader>Search Results</PopoverHeader>
