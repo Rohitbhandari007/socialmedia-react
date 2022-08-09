@@ -1,11 +1,10 @@
 import { React, useState, useEffect } from 'react'
 import Nav from '../components/Nav'
-import { Grid, GridItem, Spinner, Flex, Text, Avatar, Divider, Image, useColorModeValue } from '@chakra-ui/react'
+import { Grid, GridItem, Spinner, Flex, Text, Avatar, Divider, Image, useColorModeValue, Button } from '@chakra-ui/react'
 import { withRouter } from 'react-router-dom'
 import useAxios from '../utils/useAxios'
 import PostItem from '../components/PostItem'
 import FollowButton from '../components/smallcomponents/FollowButton'
-
 
 function PublicProfilePage(props) {
 
@@ -14,6 +13,7 @@ function PublicProfilePage(props) {
     let [userposts, setuserPosts] = useState([])
     let [loading, setLoading] = useState(false)
     const bg = useColorModeValue('#f0f0f5', '#1B222E')
+
 
     let username = props.match.params.username
     let uid = props.match.params.id
@@ -37,6 +37,7 @@ function PublicProfilePage(props) {
         try {
             let response = await api.post(url, body)
             setUser(response.data)
+            console.log(response.data)
             setLoading(true)
         } catch (error) {
             console.log(error)
@@ -89,12 +90,14 @@ function PublicProfilePage(props) {
                                 </Flex>
 
                             </Flex>
-                            {/* <FollowButton
-                            kaam={followUnfollow}
-                            folo={follow}
-                        >
-                        </FollowButton> */}
+                            <Flex justifyContent='flex-start'>
+                                <FollowButton
+                                    username={user.username}
+                                    ifollow={user.ifollow}
+                                    uid={user.id}
+                                ></FollowButton>
 
+                            </Flex>
 
                         </Flex>
 

@@ -2,19 +2,29 @@ import { React, useContext, useState } from 'react'
 import {
     Flex, Input, InputGroup, InputRightElement,
     Button, Heading, Text, useColorMode, useColorModeValue,
-    IconButton, Alert, AlertIcon, AlertDescription, AlertTitle
+    IconButton, Alert, AlertIcon, AlertDescription,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton, useDisclosure
 }
     from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 import { FaMoon, FaSun } from 'react-icons/fa';
+import axios from 'axios';
 
 
 function Login() {
 
-    //alert
 
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
+    const [resetError, setResetError] = useState([])
+    const [resetRes, setResetRes] = useState()
 
     //theming
     const { toggleColorMode } = useColorMode()
@@ -26,6 +36,26 @@ function Login() {
     const handleClick = () => setShow(!show)
 
     let { loginUser, loginErr } = useContext(AuthContext)
+
+
+
+    let sendPasswordResetEmail = async () => {
+        try {
+            let email = document.getElementById('email').value
+            let body = {
+                email: email
+            }
+            let url = 'http://127.0.0.1:8000/users/send-reset-password-email/'
+
+            let response = await axios.post(url, body)
+            console.log(response.data.msg)
+            setResetRes(response.data.msg)
+        } catch (error) {
+            console.log(error.response.data.errors)
+            setResetError(error.response.data.errors)
+            console.log(resetError)
+        }
+    }
 
     return (
 
@@ -86,13 +116,7 @@ function Login() {
 
                     </Link>
                 </Flex>
-                <Flex mt={5} alignItems='center'>
-                    <Text size='md'>
-                        Forgot password
-                    </Text>
-                    <Button ml={2}> Reset </Button>
 
-                </Flex>
                 <Flex
 
                 >
@@ -108,8 +132,62 @@ function Login() {
 
             </form >
 
+            <Flex mt={5} alignItems='center'>
+                <Text size='md'>
+                    Forgot password
+                </Text>
+                <Button ml={2} onClick={onOpen}> Reset </Button>
+                {/* <form onSubmit={sendPasswordResetEmail}> */}
+                <Modal
+                    isCentered
+                    onClose={onClose}
+                    isOpen={isOpen}
+                    motionPreset='slideInBottom'
+                >
+                    <ModalOverlay />
+                    <ModalContent>
+                        <ModalHeader>Enter you email </ModalHeader>
+                        {resetRes &&
+                            <Alert status='success'
+                                mt={4}
+                            >
+                                <AlertIcon />
+                                <AlertDescription>{resetRes}</AlertDescription>
 
-        </Flex>
+                            </Alert>}
+                        {resetError.length === 0 ?
+                            <></>
+                            :
+                            <>
+                                <Alert status='error'
+                                    mt={4}
+                                >
+                                    <AlertIcon />
+                                    <AlertDescription>{resetError.email}</AlertDescription>
+                                    <AlertDescription>{resetError.non_field_errors}</AlertDescription>
+
+
+                                </Alert>
+                            </>
+                        }
+                        <ModalCloseButton />
+                        <ModalBody>
+                            <Input type='email' placeholder='Submit your email' name='email' id='email'></Input>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button colorScheme='blue' mr={3} onClick={onClose}>
+                                Close
+                            </Button>
+                            <Button variant='ghost' type='submit' onClick={sendPasswordResetEmail}> Submit</Button>
+                        </ModalFooter>
+                    </ModalContent>
+                </Modal>
+                {/* </form> */}
+            </Flex>
+
+
+
+        </Flex >
 
 
     )
