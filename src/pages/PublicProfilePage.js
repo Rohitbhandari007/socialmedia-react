@@ -37,8 +37,9 @@ function PublicProfilePage(props) {
         try {
             let response = await api.post(url, body)
             setUser(response.data)
-            console.log(response.data)
             setLoading(true)
+            console.log(response.data)
+
         } catch (error) {
             console.log(error)
         }
@@ -78,25 +79,28 @@ function PublicProfilePage(props) {
                                 objectPosition='center center'
                                 h={{ sm: '20vh', md: '30vh' }} w={{ sm: '50vh', md: '80vh' }}
                             />
-                            <Flex flexDir='column' w="50vh" alignItems='start' zIndex={1} mt={-10}>
-                                <Avatar size='lg' src={'http://127.0.0.1:8000' + user.profile_image}></Avatar>
-                                <Text fontSize='lg'>{user.username}</Text>
-                                <Text fontSize='sm'>Nice quote is not a bio</Text>
+                            <Flex flexDir='row'>
+                                <Flex flexDir='column' w="50vh" alignItems='start' zIndex={1} mt={-10}>
+                                    <Avatar size='lg' src={'http://127.0.0.1:8000' + user.profile_image}></Avatar>
+                                    <Text fontSize='lg'>{user.username}</Text>
+                                    <Text fontSize='sm'>Nice quote is not a bio</Text>
 
-                                <Flex flexDir='row' justifyContent='space-between' w='30vh'>
-                                    <Text fontSize='sm'>{user.followers} Followers</Text>
-                                    <Text fontSize='sm'>{user.following} Following</Text>
+                                    <Flex flexDir='row' justifyContent='space-between' w='30vh'>
+                                        <Text fontSize='sm'>{user.followers} Followers</Text>
+                                        <Text fontSize='sm'>{user.following} Following</Text>
+
+                                    </Flex>
+
 
                                 </Flex>
+                                <Flex alignItems='center'>
+                                    <FollowButton
+                                        username={user.username}
+                                        ifollow={user.ifollow}
+                                        uid={user.id}
+                                    ></FollowButton>
 
-                            </Flex>
-                            <Flex justifyContent='flex-start'>
-                                <FollowButton
-                                    username={user.username}
-                                    ifollow={user.ifollow}
-                                    uid={user.id}
-                                ></FollowButton>
-
+                                </Flex>
                             </Flex>
 
                         </Flex>

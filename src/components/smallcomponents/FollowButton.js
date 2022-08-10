@@ -15,9 +15,9 @@ function FollowButton({ ifollow, username, uid }) {
 
     let [follow, setFollow] = useState(ifollow)
 
-    console.log('Before click')
-    console.log(follow)
     console.log(ifollow)
+
+
 
     let followUnfollow = async () => {
         let body = {
@@ -28,9 +28,6 @@ function FollowButton({ ifollow, username, uid }) {
             let response = await api.post(url, body)
             setFollow(response.data.follow)
 
-            console.log('After click')
-            console.log(follow)
-            console.log(ifollow)
 
         } catch (error) {
             console.log(error)

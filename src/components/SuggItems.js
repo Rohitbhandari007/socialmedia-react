@@ -26,8 +26,7 @@ function SuggItems({ username, ifollow, uid, profile_image }) {
         try {
             let response = await api.post(url, body)
             setFolllow(response.data.follow)
-            console.log(follow)
-            console.log(response.data.state)
+            console.log(response.data)
 
         } catch (error) {
             console.log(error)

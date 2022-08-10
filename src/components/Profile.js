@@ -41,6 +41,7 @@ function Profile() {
         try {
             let response = await api.get('/')
             setuserPosts(response.data)
+            console.log(response.data)
 
         } catch (error) {
             console.log(error)
