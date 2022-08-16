@@ -11,6 +11,7 @@ import ProfilePage from './pages/ProfilePage';
 import PublicProfilePage from './pages/PublicProfilePage';
 import Register from './components/auth/Register';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import PostDetail from './components/PostDetail';
 
 
 function App() {
@@ -34,6 +35,9 @@ function App() {
             </Route>
             <Route path='/user/:username/:id'>
               <PublicProfilePage />
+            </Route>
+            <Route path='/posts/:author/:id'>
+              <PostDetail></PostDetail>
             </Route>
           </Switch>
         </AuthProvider>

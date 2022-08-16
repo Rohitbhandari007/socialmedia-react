@@ -257,23 +257,26 @@ function PostItem({ title, details, postImage, created, username, likes, postId,
                             <ModalContent>
                                 <ModalCloseButton alignSelf='center' />
                                 <ModalBody>
-                                    {likedBy.map(liked => (
+                                    {/* {likedBy.map(liked => (
                                         <div
                                             key={liked.id}
                                         >{liked.username}</div>
-                                    ))}
+                                    ))} */}
                                 </ModalBody>
                             </ModalContent>
                         </Modal>
                     </Flex>
-                    <IconButton
-                        _hover={{
-                            color: "whiteAlpha.500",
-                        }}
-                        icon={<FiMessageCircle />}
-                        cursor="pointer"
-                        variant='ghost'>
-                    </IconButton>
+                    <Link to={'/posts/' + username + '/' + postId + '/'}>
+                        <IconButton
+                            _hover={{
+                                color: "whiteAlpha.500",
+                            }}
+                            icon={<FiMessageCircle />}
+                            cursor="pointer"
+                            variant='ghost'>
+                        </IconButton>
+                    </Link>
+
                     <IconButton
                         _hover={{
                             color: "whiteAlpha.500",
