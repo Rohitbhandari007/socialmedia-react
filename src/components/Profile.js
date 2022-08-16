@@ -102,6 +102,8 @@ function Profile() {
                             likedBy={note.liked}
                             iliked={note.iliked}
                             uid={note.author.id}
+                            comment_count={note.comment_count}
+
                             // likeState={like} gives true or false value
 
                             postImage={note.image}

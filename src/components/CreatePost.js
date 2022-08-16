@@ -16,6 +16,9 @@ function CreatePost() {
     let url = '/posts/'
 
     let postCreate = async (e) => {
+
+        e.preventDefault();
+
         let form_data = new FormData();
         form_data.append('image', e.target.image.files[0]);
         form_data.append('title', e.target.title.value);

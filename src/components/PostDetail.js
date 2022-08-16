@@ -1,22 +1,28 @@
-import React, { useState, useEffect } from 'react'
-import { Grid, GridItem, Flex, Text, Input, Button, Spinner } from '@chakra-ui/react'
+import React, { useState, useEffect, useCallback } from 'react'
+import { Grid, GridItem, Flex, Text, Input, Button, Spinner, Box, useColorModeValue } from '@chakra-ui/react'
 import Nav from '../components/Nav'
 import PostItem from './PostItem'
 import useAxios from '../utils/useAxios'
-import { withRouter } from 'react-router-dom'
+import { withRouter, useHistory } from 'react-router-dom'
 
 
 
 function PostDetail(props) {
 
+    const history = useHistory()
+
+    const bg = useColorModeValue('#f0f0f5', '#1B222E')
+
     let [posts, setposts] = useState([])
     let [author, setAuthor] = useState([])
     let [loading, setLoading] = useState(false)
-
+    let [comments, setComments] = useState([])
     let pid = props.match.params.id
 
 
     let api = useAxios()
+
+
 
 
     useEffect(() => {
@@ -41,21 +47,43 @@ function PostDetail(props) {
 
     let getComments = async () => {
 
-        let body = {
+        const body = {
             pk: pid
+        }
+
+        console.log(body)
+        let url = '/list-comment/'
+
+        try {
+            let response = await api.post(url, body)
+            console.log(response.data)
+            setComments(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    let postComment = async (e) => {
+
+
+        let comment = e.target.comment.value
+
+        const body = {
+            pk: pid,
+            body: comment
         }
 
         console.log(body)
         let url = '/comment/'
 
         try {
-            let response = await api.get(url, body)
+            let response = await api.post(url, body)
             console.log(response.data)
         } catch (error) {
             console.log(error)
         }
     }
-
 
     return (
         <Grid templateColumns='repeat(5, 1fr)' gap={2}>
@@ -79,16 +107,45 @@ function PostDetail(props) {
                             likedBy={posts.liked}
                             iliked={posts.iliked}
                             postImage={posts.image}
+                            comment_count={posts.comment_count}
                         ></PostItem>
 
                         <Flex flexDir='column'>
-                            <Text>
-                                comments
-                            </Text>
-                            <Flex flexDir='row'>
-                                <Input variant='filled'></Input>
-                                <Button variant='solid' colorScheme='messenger'>Comment</Button>
-                            </Flex>
+                            <form onSubmit={postComment}>
+
+                                <Flex flexDir='row' mt="2vh" justifyContent='space-between'>
+                                    <Input name='comment' variant='filled' placeholder='Enter a comment.....' w='60vh'></Input>
+                                    <Button variant='solid' size='md' type='submit' ><Text fontSize='sm' fontWeight='200'>Comment</Text></Button>
+
+                                </Flex>
+                            </form>
+
+                        </Flex>
+                        <Flex flexDir='column'>
+                            {comments.map(comment => (
+                                <Box
+                                    borderRadius='sm'
+                                    bg={bg}
+                                    mt={2}
+                                    p={2}
+                                    key={comment.id}
+                                    fontSize='sm'
+                                    boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
+
+                                >
+                                    <Flex justifyContent='space-between'>
+                                        <Text fontSize='xs' color='whiteAlpha.600'>@{comment.author.username} [ {comment.created} ]</Text>
+                                        <Text fontSize='xs' color='whiteAlpha.600'>{comment.like_count} likes</Text>
+                                    </Flex>
+
+                                    <Flex justifyContent='space-between'>
+
+                                        <Text>{comment.body}</Text>
+                                    </Flex>
+
+                                </Box>
+
+                            ))}
                         </Flex>
 
                     </Flex>
@@ -106,7 +163,7 @@ function PostDetail(props) {
             </GridItem>
 
 
-        </Grid>
+        </Grid >
     )
 }
 

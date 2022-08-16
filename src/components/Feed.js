@@ -49,6 +49,7 @@ function Feed() {
                         likedBy={note.liked}
                         iliked={note.iliked}
                         postImage={note.image}
+                        comment_count={note.comment_count}
                     ></PostItem>
                 ))}</>
                 :

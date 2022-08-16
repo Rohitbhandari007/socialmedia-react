@@ -130,6 +130,8 @@ function PublicProfilePage(props) {
                             // likeState={like} gives true or false value
                             uid={note.author.id}
                             postImage={note.image}
+                            comment_count={note.comment_count}
+
                         ></PostItem>
                     ))}
                 </GridItem>

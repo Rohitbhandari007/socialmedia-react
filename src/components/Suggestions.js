@@ -1,5 +1,5 @@
-import { React, useEffect, useState } from 'react'
-import { Flex, Input, IconButton, Text, useColorModeValue, InputGroup, Divider, Popover, PopoverCloseButton, PopoverBody, PopoverHeader, PopoverContent, Button, PopoverTrigger } from '@chakra-ui/react'
+import { React, useEffect, useState, useRef } from 'react'
+import { Flex, Input, IconButton, useDisclosure, useColorModeValue, InputGroup, Divider, Popover, PopoverCloseButton, PopoverBody, PopoverHeader, PopoverContent, Button, PopoverTrigger, Drawer, DrawerBody, DrawerCloseButton, DrawerOverlay, DrawerContent, DrawerHeader } from '@chakra-ui/react'
 import SuggItems from './SuggItems'
 import SearchResults from './SearchResults'
 import { FaSearch } from 'react-icons/fa'
@@ -11,9 +11,15 @@ function Suggestions() {
     let [users, setUsers] = useState([])
     let [query, setQuery] = useState([])
     let [searchValue, setSearchValue] = useState(null)
+    let [searchTerm, setSearchTerm] = useState('')
+
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const btnRef = useRef()
+
 
 
     const bg = useColorModeValue('none', 'none')
+
 
 
 
@@ -40,9 +46,8 @@ function Suggestions() {
     let searchUsers = async (event) => {
 
         let searchUrl = '/users/userlist/?search='
-        let searchvalue = document.getElementById('search').value
-
-
+        let searchvalue = searchTerm
+        console.log(searchTerm)
 
 
 
@@ -74,22 +79,27 @@ function Suggestions() {
 
         >
             <Flex>
-                <InputGroup>
-                    <Input variant='filled' placeholder='Search.. ' id="search" name='searchfield' />
-                </InputGroup>
+                {/* <InputGroup>
+                    <Input
+                        autoComplete='false'
+                        variant='filled'
+                        placeholder='Search.. '
+                        id="search" name='searchfield'
+                        onChange={(event) => { setSearchTerm(event.target.value); searchUsers(); onOpen() }} />
+                </InputGroup> */}
                 <Flex
                 >
 
-                    <Popover>
-                        <PopoverTrigger>
-                            <IconButton
-                                aria-label='Search database'
-                                id='searchbtn'
-                                icon={<FaSearch />}
-                                ml={1}
-                                onClick={searchUsers}
-                            />
-                        </PopoverTrigger>
+                    {/* <Popover
+                        returnFocusOnClose={false}
+                        isOpen={isOpen}
+                        onOpen={onOpen}
+                        onClose={onClose}
+                        placement='left'
+                        closeOnBlur={false}
+
+                    >
+
 
                         <PopoverContent>
                             <PopoverCloseButton />
@@ -120,13 +130,64 @@ function Suggestions() {
                             </PopoverBody>
                         </PopoverContent>
                     </Popover>
+ */}
 
+                    <>
+                        <IconButton icon={<FaSearch />} ref={btnRef} onClick={onOpen}>
+                            Search Users
+                        </IconButton>
+                        <Drawer
+                            isOpen={isOpen}
+                            placement='right'
+                            onClose={onClose}
+                            finalFocusRef={btnRef}
+                        >
+                            <DrawerOverlay />
+                            <DrawerContent>
+                                <DrawerCloseButton />
+                                <DrawerHeader>Search Results</DrawerHeader>
+
+                                <DrawerBody>
+                                    <Input variant='filled'
+                                        placeholder='Search.. '
+                                        id="search" name='searchfield'
+                                        onChange={(event) => { setSearchTerm(event.target.value); searchUsers() }} />
+
+                                    <Flex flexDir='column'>
+
+                                        {query.length === 0
+                                            ?
+                                            <>No Results found for "{searchValue}"</>
+                                            :
+                                            <>
+                                                {query.map(item => (
+                                                    <SearchResults
+                                                        key={item.id}
+                                                        uid={item.id}
+                                                        username={item.username}
+                                                        profile_image={item.profile_image}
+
+                                                        searchValue={searchValue}
+                                                    >
+                                                    </SearchResults>
+                                                ))}
+                                            </>
+
+                                        }
+                                    </Flex>
+                                </DrawerBody>
+
+                            </DrawerContent>
+                        </Drawer>
+                    </>
                 </Flex>
             </Flex>
 
 
 
             <Divider mt={1}></Divider>
+
+
 
             <Flex flexDir='column'>
 

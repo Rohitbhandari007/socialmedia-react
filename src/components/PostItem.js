@@ -20,13 +20,14 @@ import {
     VisuallyHidden,
 } from '@chakra-ui/react'
 import { FiMenu, FiHeart, FiMessageCircle, FiSave, FiShare } from 'react-icons/fi'
+import { BiComment } from 'react-icons/all'
 import useAxios from '../utils/useAxios'
 import { Link } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 
 
 
-function PostItem({ title, details, postImage, created, username, likes, postId, likedBy, iliked, uid, profile_image }) {
+function PostItem({ title, details, postImage, created, username, likes, postId, likedBy, iliked, uid, profile_image, comment_count }) {
 
     const bg = useColorModeValue('#f0f0f5', '#1B222E')
     const borderColor = useColorModeValue('1px solid #f0f0f5', 'none')
@@ -267,16 +268,21 @@ function PostItem({ title, details, postImage, created, username, likes, postId,
                         </Modal>
                     </Flex>
                     <Link to={'/posts/' + username + '/' + postId + '/'}>
-                        <IconButton
-                            _hover={{
-                                color: "whiteAlpha.500",
-                            }}
-                            icon={<FiMessageCircle />}
-                            cursor="pointer"
-                            variant='ghost'>
-                        </IconButton>
-                    </Link>
+                        <Flex flexDir='row' alignItems='center' justifyContent='center'>
 
+                            <IconButton
+                                _hover={{
+                                    color: "whiteAlpha.500",
+                                }}
+                                icon={<BiComment />}
+                                cursor="pointer"
+                                variant='ghost'>
+                            </IconButton>
+                            <Text ml={1} fontSize='xs' cursor='pointer' textAlign='center'>{comment_count} Comments</Text>
+
+                        </Flex>
+
+                    </Link>
                     <IconButton
                         _hover={{
                             color: "whiteAlpha.500",
