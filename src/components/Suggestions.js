@@ -79,62 +79,9 @@ function Suggestions() {
 
         >
             <Flex>
-                {/* <InputGroup>
-                    <Input
-                        autoComplete='false'
-                        variant='filled'
-                        placeholder='Search.. '
-                        id="search" name='searchfield'
-                        onChange={(event) => { setSearchTerm(event.target.value); searchUsers(); onOpen() }} />
-                </InputGroup> */}
-                <Flex
-                >
-
-                    {/* <Popover
-                        returnFocusOnClose={false}
-                        isOpen={isOpen}
-                        onOpen={onOpen}
-                        onClose={onClose}
-                        placement='left'
-                        closeOnBlur={false}
-
-                    >
-
-
-                        <PopoverContent>
-                            <PopoverCloseButton />
-                            <PopoverHeader>Search Results</PopoverHeader>
-                            <PopoverBody>
-
-                                {query.length === 0
-                                    ?
-                                    <>No Results found for "{searchValue}"</>
-                                    :
-                                    <>
-                                        {query.map(item => (
-                                            <SearchResults
-                                                key={item.id}
-                                                uid={item.id}
-                                                username={item.username}
-                                                profile_image={item.profile_image}
-
-                                                searchValue={searchValue}
-                                            >
-                                            </SearchResults>
-                                        ))}
-                                    </>
-
-                                }
-
-
-                            </PopoverBody>
-                        </PopoverContent>
-                    </Popover>
- */}
-
+                <Flex>
                     <>
                         <IconButton icon={<FaSearch />} ref={btnRef} onClick={onOpen}>
-                            Search Users
                         </IconButton>
                         <Drawer
                             isOpen={isOpen}
@@ -149,15 +96,15 @@ function Suggestions() {
 
                                 <DrawerBody>
                                     <Input variant='filled'
-                                        placeholder='Search.. '
+                                        placeholder='Search Users.. '
                                         id="search" name='searchfield'
                                         onChange={(event) => { setSearchTerm(event.target.value); searchUsers() }} />
 
                                     <Flex flexDir='column'>
 
-                                        {query.length === 0
+                                        {searchTerm.length === 0
                                             ?
-                                            <>No Results found for "{searchValue}"</>
+                                            <>Type something to search</>
                                             :
                                             <>
                                                 {query.map(item => (
@@ -174,6 +121,8 @@ function Suggestions() {
                                             </>
 
                                         }
+
+
                                     </Flex>
                                 </DrawerBody>
 
@@ -185,7 +134,6 @@ function Suggestions() {
 
 
 
-            <Divider mt={1}></Divider>
 
 
 

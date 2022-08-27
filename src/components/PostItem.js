@@ -283,19 +283,7 @@ function PostItem({ title, details, postImage, created, username, likes, postId,
                         </Flex>
 
                     </Link>
-                    <IconButton
-                        _hover={{
-                            color: "whiteAlpha.500",
-                        }} icon={<FiSave />}
-                        cursor="pointer"
-                        variant='ghost'>
-                    </IconButton>
-                    <IconButton
-                        _hover={{
-                            color: "whiteAlpha.500",
-                        }} icon={<FiShare />}
-                        cursor="pointer"
-                        variant='ghost'></IconButton>
+
                 </Flex>
             </Flex>
         </Box >

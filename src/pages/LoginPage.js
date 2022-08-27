@@ -1,4 +1,4 @@
-import { React, useContext, useState } from 'react'
+import { React, useContext, useState, useRef } from 'react'
 import {
     Flex, Input, InputGroup, InputRightElement,
     Button, Heading, Text, useColorMode, useColorModeValue,
@@ -9,7 +9,8 @@ import {
     ModalHeader,
     ModalFooter,
     ModalBody,
-    ModalCloseButton, useDisclosure
+    ModalCloseButton, useDisclosure,
+    useToast
 }
     from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
@@ -19,6 +20,9 @@ import axios from 'axios';
 
 
 function Login() {
+
+    const toast = useToast()
+    const toastIdRef = useRef()
 
 
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -37,6 +41,9 @@ function Login() {
 
     let { loginUser, loginErr } = useContext(AuthContext)
 
+    function addToast() {
+        toastIdRef.current = toast({ description: 'some text' })
+    }
 
 
     let sendPasswordResetEmail = async () => {
@@ -128,6 +135,8 @@ function Login() {
                             <AlertDescription>{loginErr && loginErr}</AlertDescription>
 
                         </Alert>}
+
+
                 </Flex>
 
             </form >

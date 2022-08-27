@@ -71,7 +71,6 @@ function Nav() {
                     <Link to='/'>
                         <IconButton icon={<FiHome />} variant='ghost'></IconButton>
                     </Link>
-                    <IconButton icon={<FiUmbrella />} variant='ghost'></IconButton>
                     <IconButton icon={<FiMessageCircle />} variant='ghost'></IconButton>
                     <IconButton icon={<FiSearch />} variant='ghost'></IconButton>
                     <Menu>
@@ -135,12 +134,6 @@ function Nav() {
                     </Flex>
                     <NavItem icon={FiHome} title={"Home"} linkTo="/"></NavItem>
                     <NavItem icon={FiUser} title={"Profile"} linkTo='/profile'></NavItem>
-                    <NavItem icon={FiUmbrella} title={"Notifications"} linkTo='/' ></NavItem>
-                    <NavItem icon={FiMessageCircle} title={"Messages"} linkTo='/'></NavItem>
-                    <NavItem icon={FiBookmark} title={"Saved Posts"} linkTo='/' ></NavItem>
-                    <NavItem icon={FiSettings} title={"Settings"} linkTo='/'></NavItem>
-
-
 
                 </Flex>
                 <Flex
