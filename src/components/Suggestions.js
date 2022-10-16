@@ -72,10 +72,10 @@ function Suggestions() {
             right={4}
             position="fixed"
             height='100vh'
-            width='50vh'
+            width='40vh'
             float='right'
             pos={{ md: "fixed" }}
-            display={['none', 'flex']}
+            display={['none', 'none', 'none', 'flex']}
 
         >
             <Flex>

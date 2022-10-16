@@ -1,5 +1,5 @@
 import { React, useContext, useRef, useState, useEffect } from 'react'
-import { FiPower, FiHome, FiUser, FiUmbrella, FiSettings, FiBookmark, FiMessageCircle, FiSearch } from 'react-icons/fi'
+import { FiPower, FiHome, FiUser, FiMessageCircle, FiSearch } from 'react-icons/fi'
 import { HiDotsVertical } from 'react-icons/hi'
 import NavItem from './NavItem'
 import { ColorModeSwitcher } from '../ColorModeSwitcher'
@@ -62,7 +62,7 @@ function Nav() {
                 pos='fixed'
                 bg={bgmob}
                 w='100vw'
-                display={['flex', 'none']}
+                display={['flex', 'flex', , 'flex', 'none']}
                 zIndex={1}
 
             >
@@ -108,7 +108,7 @@ function Nav() {
                 bg={bg}
                 p={4}
                 left={0}
-                display={['none', 'flex']}
+                display={['none', 'none', 'none', 'flex']}
             >
 
                 <Flex
@@ -204,7 +204,7 @@ function Nav() {
                 </Flex>
 
             </Flex >
-        </Flex>
+        </Flex >
     )
 }
 
